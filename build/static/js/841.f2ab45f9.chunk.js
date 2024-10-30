@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunktf_react_chester=self.webpackChunktf_react_chester||[]).push([[841],{4841:(e,t,a)=>{e.exports=a.p+"static/media/future-of-javascript.60b1bf635a7fbba3f7cb.md"}}]);
