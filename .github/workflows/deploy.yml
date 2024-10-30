@@ -47,7 +47,7 @@ jobs:
           # Add/modify container definition with new image
           NEW_TASK_DEFINITION=$(echo "$CLEAN_TASK_DEFINITION" | \
             jq '.containerDefinitions[0].image = "${{ secrets.ECR_REPOSITORY }}:latest" | 
-                .containerDefinitions[0].portMappings = [{containerPort: 3000}]')
+                .containerDefinitions[0].portMappings = [{containerPort: 80}]')
 
           echo "$NEW_TASK_DEFINITION" > new-task-def.json
 
@@ -59,4 +59,4 @@ jobs:
           aws ecs update-service \
             --cluster my-react-cluster \
             --service my-react-service \
-            --load-balancers targetGroupArn=arn:aws:elasticloadbalancing:us-east-2:034362046724:targetgroup/portfolio-website/02f53975ed68a9fe,containerName=my-react-container,containerPort=3000
+            --load-balancers targetGroupArn=arn:aws:elasticloadbalancing:us-east-2:034362046724:targetgroup/portfolio-website/02f53975ed68a9fe,containerName=my-react-container,containerPort=80

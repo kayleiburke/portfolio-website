@@ -18,8 +18,8 @@ RUN npm run build
 FROM nginx:alpine
 COPY --from=builder /app/build /usr/share/nginx/html
 
-# Expose port 3000 for the container
-EXPOSE 3000
+# Expose port 80 for the container
+EXPOSE 80
 
 # Start the Nginx server
 CMD ["nginx", "-g", "daemon off;"]
