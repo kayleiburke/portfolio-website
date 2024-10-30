@@ -28,6 +28,8 @@ jobs:
       - name: Build the Docker image
         run: |
           docker build -t my-react-app .
+
+          # Tag the image for ECR
           docker tag my-react-app:latest ${{ secrets.ECR_REPOSITORY }}:latest
 
       - name: Push Docker image to ECR
@@ -50,9 +52,11 @@ jobs:
           # Register the new task definition
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
-      - name: Update ECS service with new task definition
+      - name: Update ECS Service with New Task Definition
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
           REVISION=$(echo $TASK_DEFINITION | jq '.taskDefinition.revision')
+
+          # Update the ECS service with the new revision
           aws ecs update-service --cluster ${{ secrets.CLUSTER_NAME }} \
             --service ${{ secrets.SERVICE_NAME }} --task-definition ${{ secrets.TASK_FAMILY }}:$REVISION
