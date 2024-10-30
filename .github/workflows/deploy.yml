@@ -39,24 +39,15 @@ jobs:
       - name: Register new task definition
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
-
-          # Use jq to filter out unwanted fields
           NEW_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
-            jq '.taskDefinition | 
-               del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy) | 
-               with_entries(select(.value != null))')
-
-          # Save the cleaned JSON to a file
+            jq '.taskDefinition | del(.status, .revision, .taskDefinitionArn)' | \
+            jq '. + {containerDefinitions: [{name: "my-react-container", image: "${{ secrets.ECR_REPOSITORY }}:latest", portMappings: [{containerPort: 3000}]}]}')
           echo "$NEW_TASK_DEFINITION" > new-task-def.json
-
-          # Register the new task definition
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
-      - name: Update ECS Service with New Task Definition
+      - name: Update ECS service with load balancer
         run: |
-          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
-          REVISION=$(echo $TASK_DEFINITION | jq '.taskDefinition.revision')
-
-          # Update the ECS service with the new revision
-          aws ecs update-service --cluster ${{ secrets.CLUSTER_NAME }} \
-            --service ${{ secrets.SERVICE_NAME }} --task-definition ${{ secrets.TASK_FAMILY }}:$REVISION
+          aws ecs update-service \
+            --cluster my-react-cluster \
+            --service my-react-service \
+            --load-balancers targetGroupArn=arn:aws:elasticloadbalancing:us-east-2:034362046724:targetgroup/portfolio-website/02f53975ed68a9fe,containerName=my-react-container,containerPort=3000
