@@ -39,18 +39,18 @@ jobs:
       - name: Register new task definition
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
-
+      
           # Filter out unwanted fields using jq
           CLEAN_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
             jq '.taskDefinition | del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
-
-          # Add/modify container definition with port 80
+      
+          # Add/modify container definition with port 80 mapping
           NEW_TASK_DEFINITION=$(echo "$CLEAN_TASK_DEFINITION" | \
             jq '.containerDefinitions[0].image = "${{ secrets.ECR_REPOSITORY }}:latest" | 
-                .containerDefinitions[0].portMappings = [{containerPort: 80}]')
-
+                .containerDefinitions[0].portMappings = [{containerPort: 80, hostPort: 80}]')
+      
           echo "$NEW_TASK_DEFINITION" > new-task-def.json
-
+      
           # Register the new task definition
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
