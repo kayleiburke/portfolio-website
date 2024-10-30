@@ -2,9 +2,9 @@ import Mock from "../mock";
 
 const database = {
   information: {
-    name: "Devid Chester",
+    name: "Kaylei Burke",
     aboutContent:
-      "I am a frontend web developer. I can provide clean code and pixel perfect design. I also make website more & more interactive with web animations.",
+      "I'm a software developer specializing in building scalable, secure solutions with Ruby on Rails, AWS, and javascript frameworks.",
     age: 24,
     phone: "",
     nationality: "American",
@@ -13,15 +13,10 @@ const database = {
     address: "121 King Street, Melbourne, Australia",
     freelanceStatus: "Available",
     socialLinks: {
-      facebook: "https://facebook.com",
-      twitter: "https://twitter.com",
-      pinterest: "",
-      behance: "",
-      linkedin: "",
-      dribbble: "",
-      github: "https://github.com",
+      linkedin: "https://www.linkedin.com/in/kayleiburke",
+      github: "https://github.com/kayleiburke",
     },
-    brandImage: "/images/brand-image.jpg",
+    brandImage: "/images/kayleiburke.jpg",
     aboutImage: "/images/about-image.jpg",
     aboutImageLg: "/images/about-image-lg.jpg",
     cvfile: "/files/empty.pdf",

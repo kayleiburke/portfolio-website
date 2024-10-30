@@ -73,13 +73,7 @@ function Header() {
         <p className="mi-header-copyright">
           &copy; {new Date().getFullYear()}{" "}
           <b>
-            <a
-              rel="noopener noreferrer"
-              target="_blank"
-              href="https://nuclearthemes.com"
-            >
-              NuclearThemes
-            </a>
+            Kaylei Burke
           </b>
         </p>
       </div>
