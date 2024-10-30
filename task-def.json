@@ -1,0 +1,24 @@
+{
+  "family": "my-react-app",
+  "executionRoleArn": "arn:aws:iam::034362046724:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "my-react-container",
+      "image": "034362046724.dkr.ecr.us-east-2.amazonaws.com/my-react-app:latest",
+      "memory": 512,
+      "cpu": 256,
+      "essential": true,
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ]
+    }
+  ],
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "memory": "512",
+  "cpu": "256"
+}
