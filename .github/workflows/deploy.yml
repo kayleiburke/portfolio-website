@@ -25,36 +25,24 @@ jobs:
           aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
           docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
 
-      - name: Build the Docker image
+      - name: Build and Push Docker Image
         run: |
           docker build -t my-react-app .
-
-          # Tag the image for ECR
           docker tag my-react-app:latest ${{ secrets.ECR_REPOSITORY }}:latest
-
-      - name: Push Docker image to ECR
-        run: |
           docker push ${{ secrets.ECR_REPOSITORY }}:latest
 
-      - name: Register new task definition
+      - name: Register new ECS Task Definition
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
-
-          # Filter out unwanted fields using jq
-          CLEAN_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
+          CLEAN_TASK_DEF=$(echo "$TASK_DEFINITION" | \
             jq '.taskDefinition | del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
-
-          # Add/modify container definition with new image and port 80
-          NEW_TASK_DEFINITION=$(echo "$CLEAN_TASK_DEFINITION" | \
+          NEW_TASK_DEF=$(echo "$CLEAN_TASK_DEF" | \
             jq '.containerDefinitions[0].image = "${{ secrets.ECR_REPOSITORY }}:latest" | 
                 .containerDefinitions[0].portMappings = [{containerPort: 80, hostPort: 80}]')
-
-          echo "$NEW_TASK_DEFINITION" > new-task-def.json
-
-          # Register the new task definition
+          echo "$NEW_TASK_DEF" > new-task-def.json
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
-      - name: Update ECS service with load balancer
+      - name: Update ECS Service
         run: |
           aws ecs update-service \
             --cluster my-react-cluster \
