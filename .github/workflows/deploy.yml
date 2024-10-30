@@ -37,10 +37,16 @@ jobs:
       - name: Register new task definition
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
-          NEW_TASK_DEFINITION=$(echo $TASK_DEFINITION | \
-            jq --arg IMAGE_URI "${{ secrets.ECR_REPOSITORY }}:latest" \
-            '.taskDefinition | .containerDefinitions[0].image=$IMAGE_URI | del(.status,.revision,.taskDefinitionArn)')
+
+          # Use jq to filter out unwanted fields
+          NEW_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
+            jq '.taskDefinition | 
+               {family, taskRoleArn, executionRoleArn, networkMode, containerDefinitions, volumes, placementConstraints, requiresCompatibilities, cpu, memory}')
+
+          # Save the cleaned JSON to a file
           echo "$NEW_TASK_DEFINITION" > new-task-def.json
+
+          # Register the new task definition
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
       - name: Update ECS service with new task definition
