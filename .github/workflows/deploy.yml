@@ -41,7 +41,8 @@ jobs:
           # Use jq to filter out unwanted fields
           NEW_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
             jq '.taskDefinition | 
-               {family, taskRoleArn, executionRoleArn, networkMode, containerDefinitions, volumes, placementConstraints, requiresCompatibilities, cpu, memory}')
+               del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy) | 
+               with_entries(select(.value != null))')
 
           # Save the cleaned JSON to a file
           echo "$NEW_TASK_DEFINITION" > new-task-def.json
