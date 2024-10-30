@@ -3,7 +3,7 @@ name: Deploy to ECS
 on:
   push:
     branches:
-      - main  # Change 'main' to your default branch if different
+      - main  # Change 'main' if your default branch is different
 
 jobs:
   deploy:
@@ -13,11 +13,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
       - name: Log in to Amazon ECR
-        env:
-          AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws ecr get-login-password --region $AWS_REGION | \
+          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
           docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
 
       - name: Build the Docker image
@@ -30,13 +35,8 @@ jobs:
           docker push ${{ secrets.ECR_REPOSITORY }}:latest
 
       - name: Register new task definition
-        env:
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
-          SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
-          TASK_FAMILY: ${{ secrets.TASK_FAMILY }}
         run: |
-          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition $TASK_FAMILY)
+          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
           NEW_TASK_DEFINITION=$(echo $TASK_DEFINITION | \
             jq --arg IMAGE_URI "${{ secrets.ECR_REPOSITORY }}:latest" \
             '.taskDefinition | .containerDefinitions[0].image=$IMAGE_URI | del(.status,.revision,.taskDefinitionArn)')
@@ -44,11 +44,8 @@ jobs:
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
       - name: Update ECS service with new task definition
-        env:
-          AWS_REGION: ${{ secrets.AWS_REGION }}
-          CLUSTER_NAME: ${{ secrets.CLUSTER_NAME }}
-          SERVICE_NAME: ${{ secrets.SERVICE_NAME }}
         run: |
-          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition $TASK_FAMILY)
+          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
           REVISION=$(echo $TASK_DEFINITION | jq '.taskDefinition.revision')
-          aws ecs update-service --cluster $CLUSTER_NAME --service $SERVICE_NAME --task-definition $TASK_FAMILY:$REVISION
+          aws ecs update-service --cluster ${{ secrets.CLUSTER_NAME }} \
+            --service ${{ secrets.SERVICE_NAME }} --task-definition ${{ secrets.TASK_FAMILY }}:$REVISION
