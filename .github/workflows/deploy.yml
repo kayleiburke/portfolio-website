@@ -39,18 +39,18 @@ jobs:
       - name: Register new task definition
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
-      
+
           # Filter out unwanted fields using jq
           CLEAN_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
             jq '.taskDefinition | del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
-      
-          # Add/modify container definition with port 80 mapping
+
+          # Add/modify container definition with new image and port 80
           NEW_TASK_DEFINITION=$(echo "$CLEAN_TASK_DEFINITION" | \
             jq '.containerDefinitions[0].image = "${{ secrets.ECR_REPOSITORY }}:latest" | 
                 .containerDefinitions[0].portMappings = [{containerPort: 80, hostPort: 80}]')
-      
+
           echo "$NEW_TASK_DEFINITION" > new-task-def.json
-      
+
           # Register the new task definition
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
@@ -61,9 +61,3 @@ jobs:
             --service my-react-service-with-lb \
             --force-new-deployment \
             --load-balancers targetGroupArn=arn:aws:elasticloadbalancing:us-east-2:034362046724:targetgroup/portfolio-website/02f53975ed68a9fe,containerName=my-react-container,containerPort=80
-
-      - name: Verify service status
-        run: |
-          aws ecs describe-services \
-            --cluster my-react-cluster \
-            --services my-react-service-with-lb
