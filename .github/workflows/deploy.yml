@@ -39,10 +39,19 @@ jobs:
       - name: Register new task definition
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
-          NEW_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
-            jq '.taskDefinition | del(.status, .revision, .taskDefinitionArn)' | \
-            jq '. + {containerDefinitions: [{name: "my-react-container", image: "${{ secrets.ECR_REPOSITORY }}:latest", portMappings: [{containerPort: 3000}]}]}')
+
+          # Filter out unwanted fields using jq
+          CLEAN_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
+            jq '.taskDefinition | del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
+
+          # Add/modify container definition with new image
+          NEW_TASK_DEFINITION=$(echo "$CLEAN_TASK_DEFINITION" | \
+            jq '.containerDefinitions[0].image = "${{ secrets.ECR_REPOSITORY }}:latest" | 
+                .containerDefinitions[0].portMappings = [{containerPort: 3000}]')
+
           echo "$NEW_TASK_DEFINITION" > new-task-def.json
+
+          # Register the new task definition
           aws ecs register-task-definition --cli-input-json file://new-task-def.json
 
       - name: Update ECS service with load balancer
