@@ -60,4 +60,4 @@ jobs:
             --cluster my-react-cluster \
             --service my-react-service \
             --force-new-deployment \
-            --load-balancers targetGroupArn=arn:aws:elasticloadbalancing:us-east-2:034362046724:targetgroup/portfolio-website/02f53975ed68a9fe,containerName=my-react-container,containerPort=80
+            --load-balancers targetGroupArn=arn:aws:elasticloadbalancing:us-east-2:034362046724:targetgroup/ecs-my-react-service/06f80f423b79dfaa,containerName=my-react-container,containerPort=80
