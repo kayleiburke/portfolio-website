@@ -58,5 +58,5 @@ jobs:
         run: |
           aws ecs update-service \
             --cluster my-react-cluster \
-            --service my-react-service-lb \
+            --service my-react-service-with-lb \
             --load-balancers targetGroupArn=arn:aws:elasticloadbalancing:us-east-2:034362046724:targetgroup/portfolio-website/02f53975ed68a9fe,containerName=my-react-container,containerPort=80
