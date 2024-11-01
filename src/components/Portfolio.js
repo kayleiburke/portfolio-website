@@ -5,7 +5,7 @@ import { Image } from "./common/Image";
 
 function Portfolio(props) {
     const [toggler, setToggler] = useState(false);
-    const { title, subtitle, imageUrl, largeImageUrl, githubUrl, url, backendUrl } = props.content;
+    const { title, subtitle, imageUrl, largeImageUrl, githubUrl, url, backendUrl, creditsUrl } = props.content;
 
     const handleToggler = (value) => {
         setToggler(value);
@@ -48,6 +48,13 @@ function Portfolio(props) {
                             </a>
                         </li>
                     ) : null}
+                    {creditsUrl && (
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank" href={creditsUrl} title="View Template Credit">
+                                <Icon.ExternalLink />
+                            </a>
+                        </li>
+                    )}
                 </ul>
             </div>
             <h5>{title}</h5>
