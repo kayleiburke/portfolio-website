@@ -93,7 +93,8 @@ function About() {
                       Hi! I'm <span className="color-theme">{information.name}</span>
                     </h3>
                     <p>
-                      Throughout my career, I've contributed to various complex Ruby on Rails projects across multiple organizations, delivering scalable, high-quality solutions. At Techstreet, I built and managed several Rails applications, including a custom CRM, ERP systems, and digital storefronts. I excel at balancing multiple roles across software development, infrastructure, and DevOps, collaborating closely with cloud providers to optimize environments and ensure smooth deployments.
+
+                      Throughout my career, I've contributed to a range of complex Ruby on Rails projects across various organizations, delivering scalable, high-quality solutions. I have built and managed several Rails applications, including custom CRMs, ERP systems, and digital storefronts. My experience includes balancing multiple roles across software development, infrastructure, and DevOps, working closely with cloud providers to optimize environments and ensure smooth deployments.
                     </p>
                     <p>
                       Currently, I am a senior developer at the New York Public Library, where I developed a custom Shibboleth Single Sign-On solution integrated with the Sierra ILS. This project required extensive research and collaboration to overcome challenges in modifying Shibboleth configurations and integrating with HathiTrust, enabling library patrons to access a vast repository of digitized texts.
