@@ -19,7 +19,7 @@ const database = {
     brandImage: "/images/kayleiburke.jpg",
     aboutImage: "/images/about-image.jpg",
     aboutImageLg: "/images/about-image-lg.jpg",
-    cvfile: "/files/empty.pdf",
+    cvfile: "/files/KayleiBurkeResume.pdf",
   },
   services: [
     {
