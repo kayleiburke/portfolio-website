@@ -26,6 +26,7 @@ function Resumes() {
       position: "Senior Ruby on Rails Developer (Contractor)",
       company: "New York Public Library",
       details: [
+        "Contributed to the development and maintenance of a metadata management system in Ruby on Rails that populated content for the Digital Collections platform, NYPL's online archive of digitized books, images, and artifacts.",
         "Led the integration of a custom Shibboleth Single Sign-On (SSO) solution to enable seamless authentication for library patrons.",
         "Developed a solution for Shibboleth to authenticate directly through the Sierra ILS, which does not support LDAP, by leveraging the Sierra API for validating user credentials (barcode and PIN) and dynamically retrieving patron data.",
         "Collaborated closely with DevOps to set up Docker-based and EC2 testing environments, building the custom Shibboleth configuration from scratch.",
