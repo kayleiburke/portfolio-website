@@ -86,5 +86,3 @@ This project is deployed on AWS, using ECS (Elastic Container Service) and Nginx
 ## Credits
 
 - **Template**: [Chester - React Personal Portfolio Template](https://themeforest.net/item/chester-react-personal-portfolio-template/24952954?utm_source=Iterable&utm_medium=email&utm_campaign=market_email_workflow_t_orderconfirmation_all) by ThemeForest
-- **Deployment**: Deployed on AWS using services such as ECS, ECR, and GoDaddy for domain management
-- **CI/CD**: GitHub Actions for automated testing, building, and deployment workflows.
