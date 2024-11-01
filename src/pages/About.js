@@ -100,7 +100,7 @@ function About() {
                       Currently, I am a senior developer at the New York Public Library, where I developed a custom Shibboleth Single Sign-On solution integrated with the Sierra ILS. This project required extensive research and collaboration to overcome challenges in modifying Shibboleth configurations and integrating with HathiTrust, enabling library patrons to access a vast repository of digitized texts.
                     </p>
                     <p>
-                      Reach out to me through the <Link to="/contact">contact page</Link> page if you'd like to collaborate, discuss projects, or connect!
+                      Reach out to me through the <Link to="/contact">contact page</Link> page if you'd like to collaborate, discuss projects, or connect!  🎉
                     </p>
                     <a href={information.cvfile} className="mi-button">
                       Download CV
