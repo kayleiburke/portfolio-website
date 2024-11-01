@@ -52,7 +52,7 @@ function Portfolios() {
     {
       id: 6,
       title: "Beehiiv Challenge",
-      subtitle: `A Ruby on Rails and React application modified for the Beehiiv coding challenge, featuring user management and API integration. See original project instructions <a href="https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge/blob/kaylei-burke-challenge/README.md#project-requirements" target="_blank" rel="noopener noreferrer">here</a> and login credentials <a href="https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge/blob/kaylei-burke-challenge/README.md#login-credentials" target="_blank" rel="noopener noreferrer">here</a>.`,
+      subtitle: `A Ruby on Rails and React application, featuring user management and API integration. This project was created by <a href="https://github.com/beehiiv/challenge" target="_blank" rel="noopener noreferrer">Beehiiv</a> and modified as per their coding challenge instructions. See original project instructions <a href="https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge/blob/kaylei-burke-challenge/README.md#project-requirements" target="_blank" rel="noopener noreferrer">here</a> and login credentials <a href="https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge/blob/kaylei-burke-challenge/README.md#login-credentials" target="_blank" rel="noopener noreferrer">here</a>.`,
       imageUrl: "/images/beehiiv-challenge-app.png",
       githubUrl: "https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge",
       url: "https://beehiiv-challenge-kaylei-burke-e3444692c205.herokuapp.com/"
