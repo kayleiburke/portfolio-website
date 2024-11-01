@@ -48,17 +48,12 @@ function Portfolio(props) {
                             </a>
                         </li>
                     ) : null}
-                    {creditsUrl && (
-                        <li>
-                            <a rel="noopener noreferrer" target="_blank" href={creditsUrl} title="View Template Credit">
-                                <Icon.ExternalLink />
-                            </a>
-                        </li>
-                    )}
                 </ul>
             </div>
             <h5>{title}</h5>
-            {subtitle ? <h6>{subtitle}</h6> : null}
+            {subtitle ? (
+                <h6 dangerouslySetInnerHTML={{ __html: subtitle }}></h6>
+            ) : null}
             {!largeImageUrl ? null : (
                 <FsLightbox toggler={toggler} sources={largeImageUrl} />
             )}

@@ -11,12 +11,10 @@ function Portfolios() {
     {
       id: 1,
       title: "Portfolio Website",
-      subtitle: "This website! Built with React, and deployed with AWS. Based on the Chester React Personal Portfolio Template",
+      subtitle: `This website! Built with React, and deployed with AWS. Based on the <a href="https://themeforest.net/item/chester-react-personal-portfolio-template/24952954?utm_source=Iterable&utm_medium=email&utm_campaign=market_email_workflow_t_orderconfirmation_all" target="_blank" rel="noopener noreferrer">Chester React Personal Portfolio Template</a>`,
       imageUrl: "/images/portfolio-website.png",
       githubUrl: "https://github.com/kayleiburke/portfolio-website",
-      url: "https://kayleiburke.com",
-      credits: "Design template by Chester - React Personal Portfolio Template",
-      creditsUrl: "https://themeforest.net/item/chester-react-personal-portfolio-template/24952954?utm_source=Iterable&utm_medium=email&utm_campaign=market_email_workflow_t_orderconfirmation_all"
+      url: "https://kayleiburke.com"
     },
     {
       id: 2,
@@ -54,7 +52,7 @@ function Portfolios() {
     {
       id: 6,
       title: "Beehiiv Challenge",
-      subtitle: "A Ruby on Rails and React application created for the Beehiiv coding challenge, featuring user management and API integration",
+      subtitle: `A Ruby on Rails and React application modified for the Beehiiv coding challenge, featuring user management and API integration. See original project instructions <a href="https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge/blob/kaylei-burke-challenge/README.md#project-requirements" target="_blank" rel="noopener noreferrer">here</a> and login credentials <a href="https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge/blob/kaylei-burke-challenge/README.md#login-credentials" target="_blank" rel="noopener noreferrer">here</a>.`,
       imageUrl: "/images/beehiiv-challenge-app.png",
       githubUrl: "https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge",
       url: "https://beehiiv-challenge-kaylei-burke-e3444692c205.herokuapp.com/"
