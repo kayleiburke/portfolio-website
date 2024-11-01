@@ -34,10 +34,10 @@ function Blogs() {
   return (
     <Layout>
       <Helmet>
-        <title>Blogs - Chester React Personal Portfolio Template</title>
+        <title>Blogs - Kaylei Burke</title>
         <meta
           name="description"
-          content="Chester React Personal Portfolio Template Blogs Page"
+          content="Kaylei Burke Blogs Page"
         />
       </Helmet>
       <Suspense fallback={<Spinner />}>
