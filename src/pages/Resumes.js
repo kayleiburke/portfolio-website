@@ -92,8 +92,9 @@ function Resumes() {
       position: "Software Developer (Contractor)",
       company: "YRC Freight",
       details: [
-        "Supported payroll, billing, freight management, routing, and customer surveys for J.B. Hunt’s Dedicated Contract Services.",
-        "Enhanced an automated customer satisfaction survey system by gathering and refining user requirements and constructing advanced SQL queries."
+        "Created, modified, and managed financial reports using SAS, VBA, R, and JCL, providing critical insights for executives.",
+        "Built a consolidated historical dataset of common operating metrics using SAS and R, which improved data accessibility for analysis.",
+        "Enabled efficient analysis of scattered data by centralizing operating metrics for better decision-making support."
       ],
     },
     {
@@ -103,7 +104,8 @@ function Resumes() {
       company: "J.B. Hunt",
       details: [
         "Supported various systems including payroll, freight management, and order processing applications, providing on-call service and implementing bug fixes.",
-        "Enhanced a customer satisfaction survey system with custom criteria for call survey records."
+        "Enhanced an automated customer satisfaction survey system by gathering and refining user requirements and constructing advanced SQL queries.",
+        "Languages and tools used at this position included: C#, Java, SSRS, T-SQL, and DB2."
       ],
     },
   ];
