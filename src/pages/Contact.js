@@ -35,7 +35,7 @@ function Contact() {
       setMessage("Message is required");
     } else {
       setError(false);
-      setMessage("You message has been sent!!!");
+      setMessage("You message has been sent!");
     }
   };
   const handleChange = (event) => {
