@@ -54,7 +54,7 @@ function Portfolios() {
     {
       id: 6,
       title: "Beehiiv Challenge",
-      subtitle: "A Rails/React application created for the Beehiiv coding challenge, featuring user management and API integration",
+      subtitle: "A Ruby on Rails and React application created for the Beehiiv coding challenge, featuring user management and API integration",
       imageUrl: "/images/beehiiv-challenge-app.png",
       githubUrl: "https://github.com/kayleiburke/kaylei-burke-beehiiv-challenge",
       url: "https://beehiiv-challenge-kaylei-burke-e3444692c205.herokuapp.com/"
