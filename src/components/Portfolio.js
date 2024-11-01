@@ -5,7 +5,7 @@ import { Image } from "./common/Image";
 
 function Portfolio(props) {
     const [toggler, setToggler] = useState(false);
-    const { title, subtitle, imageUrl, largeImageUrl, githubUrl, url, creditsUrl } = props.content;
+    const { title, subtitle, imageUrl, largeImageUrl, githubUrl, url, backendUrl } = props.content;
 
     const handleToggler = (value) => {
         setToggler(value);
@@ -20,7 +20,6 @@ function Portfolio(props) {
                     alt={title}
                 />
                 <ul>
-                    {/* Image Zoom Icon */}
                     {!largeImageUrl ? null : (
                         <li>
                             <button onClick={() => handleToggler(!toggler)}>
@@ -28,35 +27,32 @@ function Portfolio(props) {
                             </button>
                         </li>
                     )}
-                    {/* Deployed Site Link Icon */}
-                    {url && (
+                    {url ? (
                         <li>
                             <a rel="noopener noreferrer" target="_blank" href={url} title="View Deployed Site">
                                 <Icon.Link />
                             </a>
                         </li>
-                    )}
-                    {/* GitHub Code Link Icon */}
-                    {githubUrl && (
+                    ) : null}
+                    {githubUrl ? (
                         <li>
                             <a rel="noopener noreferrer" target="_blank" href={githubUrl} title="View Code on GitHub">
                                 <Icon.GitHub />
                             </a>
                         </li>
-                    )}
-                    {/* Template Credit Link Icon */}
-                    {creditsUrl && (
+                    ) : null}
+                    {backendUrl ? (
                         <li>
-                            <a rel="noopener noreferrer" target="_blank" href={creditsUrl} title="View Template Credit">
-                                <Icon.ExternalLink />
+                            <a rel="noopener noreferrer" target="_blank" href={backendUrl} title="View Backend Code on GitHub">
+                                <Icon.GitHub />
                             </a>
                         </li>
-                    )}
+                    ) : null}
                 </ul>
             </div>
             <h5>{title}</h5>
-            {subtitle && <h6>{subtitle}</h6>}
-            {largeImageUrl && (
+            {subtitle ? <h6>{subtitle}</h6> : null}
+            {!largeImageUrl ? null : (
                 <FsLightbox toggler={toggler} sources={largeImageUrl} />
             )}
         </div>

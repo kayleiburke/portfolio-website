@@ -11,7 +11,7 @@ function Portfolios() {
     {
       id: 1,
       title: "Portfolio Website",
-      subtitle: "This website! Built with React, and deployed with AWS. Based on the Chester React Personal Portfolio Template.",
+      subtitle: "This website! Built with React, and deployed with AWS. Based on the Chester React Personal Portfolio Template",
       imageUrl: "/images/portfolio-website.png",
       githubUrl: "https://github.com/kayleiburke/portfolio-website",
       url: "https://kayleiburke.com",
@@ -29,7 +29,7 @@ function Portfolios() {
     {
       id: 3,
       title: "Sample Meetup Site",
-      subtitle: "A sample Ruby on Rails app allowing users to create and manage meetup groups, featuring CSV bulk uploads and role-based permissions.",
+      subtitle: "A sample Ruby on Rails app allowing users to create and manage meetup groups, featuring CSV bulk uploads and role-based permissions",
       imageUrl: "/images/sample-meetup-app.png",
       githubUrl: "https://github.com/kayleiburke/sample-meetup",
       url: "https://sample-meetup-site-heroku-22.herokuapp.com/"
@@ -41,6 +41,15 @@ function Portfolios() {
       imageUrl: "/images/movie-search-app.png",
       githubUrl: "https://github.com/kayleiburke/movie-search",
       url: "https://omdb-database-search-demo.herokuapp.com/"
+    },
+    {
+      id: 5,
+      title: "PaymentSpring Demo",
+      subtitle: "An authenticated Vue application with a Ruby on Rails back end that processes sample payments through PaymentSpring",
+      imageUrl: "/images/payment-spring-demo-app.png",
+      githubUrl: "https://github.com/kayleiburke/paymentspring-demo",
+      url: "https://payment-spring-demo.herokuapp.com/",
+      backendUrl: "https://github.com/kayleiburke/paymentspring-demo-backend"
     }
   ];
 
