@@ -36,10 +36,12 @@ function Resumes() {
       position: "Senior Software Engineer",
       company: "Techstreet",
       details: [
-        "Managed Level 3 support tickets, including database fixes and feature enhancements.",
-        "Completed more than 650 support tickets, many involving querying or modifying live production code or database data.",
-        "Supported SSO integration with storefront sites, using the ruby-saml gem for compatibility with Okta, OpenAthens, and Azure.",
-        "Helped manage applications daily in AWS, using EC2, Amplify, ECS, Lambda, CloudWatch, Athena, CodeBuild, and CodePipeline."
+        "Supported several Ruby on Rails applications (versions 1-6), including custom storefronts, CRM, ERP, order tracking, and digital product management systems. I was primarily in charge of managing the Level 3 support ticket queue - which involved regular database and bug fixes by directly modifying code on our EC2 instances, running custom scripts, manipulating data through Rails console, and generating complex reports in Oracle, Postgres, MySQL, and MongoDB.",
+        "Completed more than 650 support tickets, many of which involved querying or modifying live production code or database data",
+        "Completed numerous feature enhancements, including integration with PDF Repair and Optimization tools into our custom product management system.",
+        "Helped create a custom Ruby on Jets CRM application with a new development team from the ground up",
+        "Played a pivotal role in support of SSO integration with storefront sites - including compatibility with Okta, OpenAthens, and Azure - using the ruby-saml gem. We supported both IdP and SP-initiated logins.",
+        "Helped manage applications on a daily basis in AWS using EC2 (for Rails applications), Amplify (for Angular applications), ECS (for Java applications), Lambda (for Ruby on Jets application), CloudWatch (for Lambda and ECS debugging), Athena (querying SES logs), and Code Build and Code Pipeline for continuous integration with Github projects."
       ],
     },
     {
