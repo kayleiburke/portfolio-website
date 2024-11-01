@@ -110,7 +110,7 @@ function About() {
             </div>
           </div>
           <div className="mi-service-area mi-section mi-padding-top">
-            <div className="container">
+            {/*<div className="container">
               <Sectiontitle title="Services" />
               <div className="mi-service-wrapper">
                 <div className="row mt-30-reverse">
@@ -125,9 +125,9 @@ function About() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div>*/}
           </div>
-          <div className="mi-review-area mi-section mi-padding-top mi-padding-bottom">
+          {/*<div className="mi-review-area mi-section mi-padding-top mi-padding-bottom">
             <div className="container">
               <Sectiontitle title="Reviews" />
               <div className="row justify-content-center">
@@ -140,7 +140,7 @@ function About() {
                 </div>
               </div>
             </div>
-          </div>
+          </div>*/}
         </Suspense>
       </Layout>
   );
