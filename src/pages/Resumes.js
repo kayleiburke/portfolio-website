@@ -149,7 +149,7 @@ function Resumes() {
           <div className="mi-resume-area mi-section mi-padding-top mi-padding-bottom">
             <div className="container">
               <Sectiontitle title="Resume" />
-              <Smalltitle title="Working Experience" icon="briefcase" />
+              <Smalltitle title="Work Experience" icon="briefcase" />
               <div className="mi-resume-wrapper">
                 {workingExperience.map((workingExp) => (
                     <Resume key={workingExp.id} resumeData={workingExp} />
