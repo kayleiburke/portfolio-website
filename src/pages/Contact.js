@@ -19,23 +19,29 @@ function Contact() {
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
-    if (!formdata.name) {
-      setError(true);
-      setMessage("Name is required");
-    } else if (!formdata.email) {
-      setError(true);
-      setMessage("Email is required");
-    } else if (!formdata.subject) {
-      setError(true);
-      setMessage("Subject is required");
-    } else if (!formdata.message) {
-      setError(true);
-      setMessage("Message is required");
-    } else {
-      setError(false);
-      setMessage("You message has been sent!");
+
+    const { name, email, subject, message } = formdata;
+
+    try {
+      const response = await fetch('https://ofq7q050fl.execute-api.us-east-1.amazonaws.com/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, subject, message }),
+      });
+
+      if (response.ok) {
+        setMessage("Your message has been sent!");
+        setFormdata({ name: "", email: "", subject: "", message: "" });
+      } else {
+        setMessage("Failed to send message.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      setMessage("An error occurred. Please try again later.");
     }
   };
   const handleChange = (event) => {
