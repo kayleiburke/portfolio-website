@@ -24,6 +24,22 @@ function Contact() {
 
     const { name, email, subject, message } = formdata;
 
+    if (!name || !email || !subject || !message) {
+      setError(true);
+      setMessage("All fields are required.");
+      return;
+    }
+
+    // Basic Email Validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      setError(true);
+      setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    setError(false);
+
     try {
       const response = await fetch('https://dmu903rqzb.execute-api.us-east-2.amazonaws.com/send-email', {
         method: 'POST',
@@ -37,13 +53,16 @@ function Contact() {
         setMessage("Your message has been sent!");
         setFormdata({ name: "", email: "", subject: "", message: "" });
       } else {
+        setError(true);
         setMessage("Failed to send message.");
       }
     } catch (error) {
       console.error("Error:", error);
+      setError(true);
       setMessage("An error occurred. Please try again later.");
     }
   };
+
   const handleChange = (event) => {
     setFormdata({
       ...formdata,
