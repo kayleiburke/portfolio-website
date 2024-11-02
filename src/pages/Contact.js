@@ -25,7 +25,7 @@ function Contact() {
     const { name, email, subject, message } = formdata;
 
     try {
-      const response = await fetch('https://ofq7q050fl.execute-api.us-east-1.amazonaws.com/send-email', {
+      const response = await fetch('https://dmu903rqzb.execute-api.us-east-2.amazonaws.com/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
