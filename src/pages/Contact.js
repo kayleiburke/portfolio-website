@@ -6,6 +6,9 @@ import Layout from "../components/Layout";
 import Sectiontitle from "../components/Sectiontitle";
 import Spinner from "../components/Spinner";
 
+// reCAPTCHA Site Key (use an environment variable if desired)
+const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+
 function Contact() {
   const [phoneNumbers, setPhoneNumbers] = useState([]);
   const [emailAddress, setEmailAddress] = useState([]);
@@ -24,17 +27,26 @@ function Contact() {
 
     const { name, email, subject, message } = formdata;
 
+    // Client-side validation
     if (!name || !email || !subject || !message) {
       setError(true);
       setMessage("All fields are required.");
       return;
     }
 
-    // Basic Email Validation
+    // Basic email format validation
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailPattern.test(email)) {
       setError(true);
       setMessage("Please enter a valid email address.");
+      return;
+    }
+
+    // Retrieve reCAPTCHA token
+    const captchaToken = window.grecaptcha.getResponse();
+    if (!captchaToken) {
+      setError(true);
+      setMessage("Please complete the CAPTCHA.");
       return;
     }
 
@@ -46,12 +58,13 @@ function Contact() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, subject, message }),
+        body: JSON.stringify({ name, email, subject, message, captchaToken }),
       });
 
       if (response.ok) {
         setMessage("Your message has been sent!");
         setFormdata({ name: "", email: "", subject: "", message: "" });
+        window.grecaptcha.reset(); // Reset CAPTCHA after successful submission
       } else {
         setError(true);
         setMessage("Failed to send message.");
@@ -69,6 +82,7 @@ function Contact() {
       [event.currentTarget.name]: event.currentTarget.value,
     });
   };
+
   const numberFormatter = (number) => {
     const phnNumber = number;
     return phnNumber;
@@ -90,6 +104,17 @@ function Contact() {
       setEmailAddress(response.data.emailAddress);
       setAddress(response.data.address);
     });
+
+    // Load the reCAPTCHA script
+    const script = document.createElement("script");
+    script.src = "https://www.google.com/recaptcha/api.js";
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
   }, []);
 
   return (
@@ -119,11 +144,11 @@ function Contact() {
                         Enter your name*
                       </label>
                       <input
-                        onChange={handleChange}
-                        type="text"
-                        name="name"
-                        id="contact-form-name"
-                        value={formdata.name}
+                          onChange={handleChange}
+                          type="text"
+                          name="name"
+                          id="contact-form-name"
+                          value={formdata.name}
                       />
                     </div>
                     <div className="mi-form-field">
@@ -163,6 +188,8 @@ function Contact() {
                         value={formdata.message}
                       ></textarea>
                     </div>
+                    {/* reCAPTCHA Widget */}
+                    <div className="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY}></div>
                     <div className="mi-form-field">
                       <button className="mi-button" type="submit">
                         Send Mail

@@ -1,37 +1,56 @@
-// Use require instead of import
-const sgMail = require('@sendgrid/mail');
+const sgMail = require("@sendgrid/mail");
+const fetch = require("node-fetch");
 
-// Set the SendGrid API key
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-// Define the handler function
-const handler = async (event) => {
-    const { name, email, subject, message } = JSON.parse(event.body);
-
-    const msg = {
-        to: 'kaylei.burke@gmail.com', // Replace with the verified recipient email
-        from: 'kaylei.burke@gmail.com', // Use a verified sender email from your SendGrid account
-        subject: subject || 'No Subject',
-        text: `From: ${name} <${email}>\n\n${message}`,
-        html: `<p><strong>From:</strong> ${name} &lt;${email}&gt;</p><p>${message}</p>`,
-    };
-
+exports.handler = async (event) => {
     try {
-        // Send the email
+        const { name, email, subject, message, recaptchaToken } = JSON.parse(event.body);
+
+        // Validate input fields
+        if (!name || !email || !subject || !message) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: "All fields are required." }),
+            };
+        }
+
+        // Verify reCAPTCHA
+        const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY;
+        const recaptchaResponse = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaSecret}&response=${recaptchaToken}`, {
+            method: "POST",
+        });
+
+        const recaptchaData = await recaptchaResponse.json();
+
+        if (!recaptchaData.success) {
+            return {
+                statusCode: 400,
+                body: JSON.stringify({ error: "reCAPTCHA verification failed." }),
+            };
+        }
+
+        // Prepare email content
+        const msg = {
+            to: "kaylei.burke@gmail.com", // Replace with your recipient email
+            from: "kaylei.burke@gmail.com", // Must be a verified sender in SendGrid
+            subject: subject || "No Subject",
+            text: `From: ${name} <${email}>\n\n${message}`,
+            html: `<p><strong>From:</strong> ${name} &lt;${email}&gt;</p><p>${message}</p>`,
+        };
+
+        // Send email using SendGrid
         await sgMail.send(msg);
+
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'Email sent successfully!' }),
+            body: JSON.stringify({ message: "Email sent successfully!" }),
         };
     } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'Failed to send email', details: error.message }),
+            body: JSON.stringify({ error: "Failed to send email", details: error.message }),
         };
     }
 };
-
-// Export the handler using CommonJS syntax
-module.exports = { handler };
-
