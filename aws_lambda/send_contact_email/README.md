@@ -41,6 +41,8 @@ npm install
 4. Go to the AWS Lambda Console and create or update a Lambda function.
    - Set the runtime to Node.js 18.x (or compatible version).
    - Upload the `function.zip` file.
+   - Properly uploaded zip file will look something like this:
+     <img width="1211" alt="Screenshot 2024-11-02 at 4 44 35 PM" src="https://github.com/user-attachments/assets/1153205e-af58-4e1d-b69d-4c67a723b727">
 5. Add the `SENDGRID_API_KEY` environment variable in the Lambda console.
 
 ## Error Handling
