@@ -8,6 +8,14 @@ import Spinner from "../components/Spinner";
 
 const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
+// Toggle reCAPTCHA badge visibility
+const toggleCaptchaBadge = (show) => {
+  const badge = document.getElementsByClassName("grecaptcha-badge")[0];
+  if (badge && badge instanceof HTMLElement) {
+    badge.style.visibility = show ? "visible" : "hidden";
+  }
+};
+
 function Contact() {
   const [phoneNumbers, setPhoneNumbers] = useState([]);
   const [emailAddress, setEmailAddress] = useState([]);
@@ -34,10 +42,13 @@ function Contact() {
     script.async = true;
     document.body.appendChild(script);
 
-    // Cleanup function to remove reCAPTCHA script when leaving page
+    // Show reCAPTCHA badge only on this page
+    toggleCaptchaBadge(true);
+
     return () => {
       document.body.removeChild(script);
-      delete window.grecaptcha; // Remove the global grecaptcha variable
+      delete window.grecaptcha;
+      toggleCaptchaBadge(false); // Hide badge when leaving page
     };
   }, []);
 
@@ -94,11 +105,6 @@ function Contact() {
       ...formdata,
       [event.currentTarget.name]: event.currentTarget.value,
     });
-  };
-
-  const numberFormatter = (number) => {
-    const phnNumber = number;
-    return phnNumber;
   };
 
   const handleAlerts = () => {
