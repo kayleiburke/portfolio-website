@@ -26,8 +26,10 @@ jobs:
           docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
 
       - name: Build the Docker image
+        env:
+          REACT_APP_RECAPTCHA_SITE_KEY: ${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
         run: |
-          docker build -t my-react-app .
+          docker build --build-arg REACT_APP_RECAPTCHA_SITE_KEY=$REACT_APP_RECAPTCHA_SITE_KEY -t my-react-app .
 
           # Tag the image for ECR
           docker tag my-react-app:latest ${{ secrets.ECR_REPOSITORY }}:latest
