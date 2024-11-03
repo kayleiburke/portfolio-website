@@ -99,6 +99,8 @@ function Contact() {
   };
 
   useEffect(() => {
+    console.log("Recaptcha Site Key:", process.env.REACT_APP_RECAPTCHA_SITE_KEY);
+
     axios.get("/api/contactinfo").then((response) => {
       setPhoneNumbers(response.data.phoneNumbers);
       setEmailAddress(response.data.emailAddress);
