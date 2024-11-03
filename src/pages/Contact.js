@@ -6,7 +6,6 @@ import Layout from "../components/Layout";
 import Sectiontitle from "../components/Sectiontitle";
 import Spinner from "../components/Spinner";
 
-// reCAPTCHA Site Key (use an environment variable if desired)
 const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
 function Contact() {
@@ -21,6 +20,24 @@ function Contact() {
   });
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    axios.get("/api/contactinfo").then((response) => {
+      setPhoneNumbers(response.data.phoneNumbers);
+      setEmailAddress(response.data.emailAddress);
+      setAddress(response.data.address);
+    });
+
+    // Load the reCAPTCHA v3 script
+    const script = document.createElement("script");
+    script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   const submitHandler = async (event) => {
     event.preventDefault();
@@ -42,17 +59,12 @@ function Contact() {
       return;
     }
 
-    // Retrieve reCAPTCHA token
-    const captchaToken = window.grecaptcha.getResponse();
-    if (!captchaToken) {
-      setError(true);
-      setMessage("Please complete the CAPTCHA.");
-      return;
-    }
-
     setError(false);
 
     try {
+      // Execute reCAPTCHA v3 to get the token
+      const captchaToken = await window.grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: "submit" });
+
       const response = await fetch('https://dmu903rqzb.execute-api.us-east-2.amazonaws.com/send-email', {
         method: 'POST',
         headers: {
@@ -64,7 +76,6 @@ function Contact() {
       if (response.ok) {
         setMessage("Your message has been sent!");
         setFormdata({ name: "", email: "", subject: "", message: "" });
-        window.grecaptcha.reset(); // Reset CAPTCHA after successful submission
       } else {
         setError(true);
         setMessage("Failed to send message.");
@@ -98,35 +109,11 @@ function Contact() {
     }
   };
 
-  useEffect(() => {
-    console.log("Recaptcha Site Key:", process.env.REACT_APP_RECAPTCHA_SITE_KEY);
-
-    axios.get("/api/contactinfo").then((response) => {
-      setPhoneNumbers(response.data.phoneNumbers);
-      setEmailAddress(response.data.emailAddress);
-      setAddress(response.data.address);
-    });
-
-    // Load the reCAPTCHA script
-    const script = document.createElement("script");
-    script.src = "https://www.google.com/recaptcha/api.js";
-    script.async = true;
-    script.defer = true;
-    document.body.appendChild(script);
-
-    return () => {
-      document.body.removeChild(script);
-    };
-  }, []);
-
   return (
     <Layout>
       <Helmet>
         <title>Contact - Kaylei Burke</title>
-        <meta
-          name="description"
-          content="Kaylei Burke Contact Page"
-        />
+        <meta name="description" content="Kaylei Burke Contact Page" />
       </Helmet>
       <Suspense fallback={<Spinner />}>
         <div className="mi-contact-area mi-section mi-padding-top mi-padding-bottom">
@@ -190,8 +177,6 @@ function Contact() {
                         value={formdata.message}
                       ></textarea>
                     </div>
-                    {/* reCAPTCHA Widget */}
-                    <div className="g-recaptcha" data-sitekey={RECAPTCHA_SITE_KEY}></div>
                     <div className="mi-form-field">
                       <button className="mi-button" type="submit">
                         Send Mail
@@ -203,8 +188,8 @@ function Contact() {
               </div>
               <div className="col-lg-6">
                 <div className="mi-contact-info">
-                  {!phoneNumbers ? null : (
-                    <div className="mi-contact-infoblock">
+                  {phoneNumbers.length > 0 && (
+                      <div className="mi-contact-infoblock">
                       <span className="mi-contact-infoblock-icon">
                         <Icon.Phone />
                       </span>
@@ -212,16 +197,14 @@ function Contact() {
                         <h6>Phone</h6>
                         {phoneNumbers.map((phoneNumber) => (
                           <p key={phoneNumber}>
-                            <a href={numberFormatter(phoneNumber)}>
-                              {phoneNumber}
-                            </a>
+                            <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
                           </p>
                         ))}
                       </div>
                     </div>
                   )}
-                  {!emailAddress ? null : (
-                    <div className="mi-contact-infoblock">
+                  {emailAddress.length > 0 && (
+                      <div className="mi-contact-infoblock">
                       <span className="mi-contact-infoblock-icon">
                         <Icon.Mail />
                       </span>
@@ -234,8 +217,8 @@ function Contact() {
                         ))}
                       </div>
                     </div>
-                  )}
-                  {!phoneNumbers ? null : (
+                )}
+                {address && (
                     <div className="mi-contact-infoblock">
                       <span className="mi-contact-infoblock-icon">
                         <Icon.MapPin />
