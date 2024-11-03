@@ -26,10 +26,10 @@ jobs:
           docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
 
       - name: Build the Docker image
-        env:
-          REACT_APP_RECAPTCHA_SITE_KEY: ${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}
         run: |
-          docker build --build-arg REACT_APP_RECAPTCHA_SITE_KEY=$REACT_APP_RECAPTCHA_SITE_KEY -t my-react-app .
+          docker build \
+            --build-arg REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }} \
+            -t my-react-app .
 
           # Tag the image for ECR
           docker tag my-react-app:latest ${{ secrets.ECR_REPOSITORY }}:latest
@@ -46,11 +46,10 @@ jobs:
           CLEAN_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
             jq '.taskDefinition | del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
 
-          # Add/modify container definition with new image, port, and environment variable
+          # Add/modify container definition with new image and port
           NEW_TASK_DEFINITION=$(echo "$CLEAN_TASK_DEFINITION" | \
             jq '.containerDefinitions[0].image = "${{ secrets.ECR_REPOSITORY }}:latest" |
-                .containerDefinitions[0].portMappings = [{containerPort: 80, hostPort: 80}] |
-                .containerDefinitions[0].environment += [{"name": "REACT_APP_RECAPTCHA_SITE_KEY", "value": "${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }}"}]')
+                .containerDefinitions[0].portMappings = [{containerPort: 80, hostPort: 80}]')
 
           echo "$NEW_TASK_DEFINITION" > new-task-def.json
 

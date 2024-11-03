@@ -1,7 +1,8 @@
-# Dockerfile
-
 # Use a Node image to build the React app
 FROM node:18-alpine AS builder
+
+# Accept build arguments
+ARG REACT_APP_RECAPTCHA_SITE_KEY
 
 # Set working directory inside container
 WORKDIR /app
@@ -10,8 +11,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# Copy the source code and build the React app
+# Copy the source code and build the React app with the environment variable
 COPY . .
+# Set the REACT_APP_RECAPTCHA_SITE_KEY environment variable for the build
+ENV REACT_APP_RECAPTCHA_SITE_KEY=${REACT_APP_RECAPTCHA_SITE_KEY}
 RUN npm run build
 
 # Use a lightweight web server to serve the built files
