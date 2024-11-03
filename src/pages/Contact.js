@@ -34,8 +34,10 @@ function Contact() {
     script.async = true;
     document.body.appendChild(script);
 
+    // Cleanup function to remove reCAPTCHA script when leaving page
     return () => {
       document.body.removeChild(script);
+      delete window.grecaptcha; // Remove the global grecaptcha variable
     };
   }, []);
 
