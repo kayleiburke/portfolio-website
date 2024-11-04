@@ -138,7 +138,7 @@ const database = {
         details: [
           "Contributed to the development and maintenance of a metadata management system in Ruby on Rails that populated content for the Digital Collections platform, NYPL's online archive of digitized books, images, and artifacts.",
           "Led the integration of a custom Shibboleth Single Sign-On (SSO) solution to enable seamless authentication for library patrons.",
-          "Developed a solution for Shibboleth to authenticate directly through the Sierra ILS, which does not support LDAP, by leveraging the Sierra API for validating user credentials (barcode and PIN) and dynamically retrieving patron data.",
+          "Developed a solution for Shibboleth to authenticate directly through Sierra ILS by leveraging the Sierra API for validating user credentials (barcode and PIN) and dynamically retrieving patron data. ",
           "Collaborated closely with DevOps to set up Docker-based and EC2 testing environments, building the custom Shibboleth configuration from scratch.",
           "Managed the upgrade process from Shibboleth v3 to v5, enhancing security and creating a foundation for future integrations with resources like HathiTrust and internal NYPL applications.",
           "Successfully completed HathiTrust integration, enabling patrons to access thousands of digitized academic resources with their library credentials."
@@ -237,7 +237,7 @@ const database = {
     {
       id: 1,
       title: "Markdown & Html supported blog.",
-      featuredImage: "/images/blog-image-1.jpg",
+      featuredImage: "/images/rocket.jpg",
       filesource: "../../blog/markdown-html-supported-blog.md",
       createDay: "3",
       createMonth: "November",
