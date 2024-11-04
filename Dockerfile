@@ -3,6 +3,7 @@ FROM node:18-alpine AS builder
 
 # Accept build arguments
 ARG REACT_APP_RECAPTCHA_SITE_KEY
+ARG REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID
 
 # Set working directory inside container
 WORKDIR /app
