@@ -29,6 +29,7 @@ jobs:
         run: |
           docker build \
             --build-arg REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }} \
+            --build-arg REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID=${{ secrets.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID }} \
             -t my-react-app .
 
           # Tag the image for ECR

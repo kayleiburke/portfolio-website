@@ -15,6 +15,7 @@ RUN npm install
 COPY . .
 # Set the REACT_APP_RECAPTCHA_SITE_KEY environment variable for the build
 ENV REACT_APP_RECAPTCHA_SITE_KEY=${REACT_APP_RECAPTCHA_SITE_KEY}
+ENV REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID=${REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID}
 RUN npm run build
 
 # Use a lightweight web server to serve the built files
