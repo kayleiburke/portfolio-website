@@ -246,7 +246,7 @@ const database = {
   ],
   contactInfo: {
     phoneNumbers: ["+1 402-909-3286"],
-    emailAddress: ["kaylei.burke@gmail.com"],
+    emailAddress: ["info@kayleiburke.com"],
     address: "Omaha, Nebraska",
   },
 };
