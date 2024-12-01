@@ -245,7 +245,7 @@ const database = {
     }
   ],
   contactInfo: {
-    phoneNumbers: ["+1 402-909-3286"],
+    phoneNumbers: ["402-867-1801"],
     emailAddress: ["info@kayleiburke.com"],
     address: "Omaha, Nebraska",
   },
