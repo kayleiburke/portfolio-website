@@ -132,7 +132,7 @@ const database = {
     workingExperience: [
       {
         id: 1,
-        year: "08/2024 - 10/2024",
+        year: "08/2023 - 10/2024",
         position: "Senior Ruby on Rails Developer (Contractor)",
         company: "New York Public Library",
         details: [
