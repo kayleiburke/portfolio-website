@@ -1,4 +1,4 @@
-name: Deploy to ECS
+name: Deploy website to S3 + CloudFront
 
 on:
   push:
@@ -18,49 +18,28 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          aws-region: us-east-1
 
-      - name: Log in to Amazon ECR
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build React App
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | \
-          docker login --username AWS --password-stdin ${{ secrets.ECR_REPOSITORY }}
+          npm run build
 
-      - name: Build the Docker image
+      - name: Sync S3 bucket
         run: |
-          docker build \
-            --build-arg REACT_APP_RECAPTCHA_SITE_KEY=${{ secrets.REACT_APP_RECAPTCHA_SITE_KEY }} \
-            --build-arg REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID=${{ secrets.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID }} \
-            -t my-react-app .
+          aws s3 sync build/ s3://${{ secrets.S3_BUCKET_NAME }} \
+            --delete \
+            --cache-control "max-age=31536000"
 
-          # Tag the image for ECR
-          docker tag my-react-app:latest ${{ secrets.ECR_REPOSITORY }}:latest
-
-      - name: Push Docker image to ECR
+      - name: Invalidate CloudFront cache
         run: |
-          docker push ${{ secrets.ECR_REPOSITORY }}:latest
-
-      - name: Register new task definition
-        run: |
-          TASK_DEFINITION=$(aws ecs describe-task-definition --task-definition ${{ secrets.TASK_FAMILY }})
-
-          # Filter out unwanted fields using jq
-          CLEAN_TASK_DEFINITION=$(echo "$TASK_DEFINITION" | \
-            jq '.taskDefinition | del(.status, .revision, .taskDefinitionArn, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)')
-
-          # Add/modify container definition with new image and port
-          NEW_TASK_DEFINITION=$(echo "$CLEAN_TASK_DEFINITION" | \
-            jq '.containerDefinitions[0].image = "${{ secrets.ECR_REPOSITORY }}:latest" |
-                .containerDefinitions[0].portMappings = [{containerPort: 80, hostPort: 80}]')
-
-          echo "$NEW_TASK_DEFINITION" > new-task-def.json
-
-          # Register the new task definition
-          aws ecs register-task-definition --cli-input-json file://new-task-def.json
-
-      - name: Update ECS service with load balancer
-        run: |
-          aws ecs update-service \
-            --cluster my-react-cluster \
-            --service my-react-service \
-            --force-new-deployment \
-            --load-balancers targetGroupArn=arn:aws:elasticloadbalancing:us-east-2:034362046724:targetgroup/ecs-my-react-service/06f80f423b79dfaa,containerName=my-react-container,containerPort=80
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"
