@@ -30,7 +30,7 @@ jobs:
 
       - name: Build React App
         run: |
-          npm run build
+          REACT_APP_GA_MEASUREMENT_ID="${{ secrets.REACT_APP_GA_MEASUREMENT_ID }}" npm run build
 
       - name: Sync S3 bucket
         run: |
