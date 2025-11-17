@@ -14,7 +14,7 @@ import { RouterProvider, useLocation } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 
 // Initialize the Google Analytics ID here
-const TRACKING_ID = process.env.REACT_APP_GOOGLE_ANALYTICS_TRACKING_ID
+const TRACKING_ID = process.env.REACT_APP_GA_MEASUREMENT_ID
 
 function App() {
   const [lightMode, setLightMode] = useState(false); // Made it true if you want to load your site light mode primary
