@@ -13,8 +13,7 @@ import Resumes from "./pages/Resumes";
 import { RouterProvider, useLocation } from "react-router-dom";
 import { createBrowserRouter } from "react-router-dom";
 
-// Initialize the Google Analytics ID here
-const TRACKING_ID = process.env.REACT_APP_GA_MEASUREMENT_ID
+const TRACKING_ID = process.env.REACT_APP_GA_MEASUREMENT_ID;
 
 function App() {
   const [lightMode, setLightMode] = useState(false); // Made it true if you want to load your site light mode primary
@@ -24,9 +23,10 @@ function App() {
     : document.body.classList.remove("light");
 
   useEffect(() => {
-    ReactGA.initialize(TRACKING_ID);
-    // Track the initial page load
-    ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search });
+    if (TRACKING_ID) {
+      ReactGA.initialize(TRACKING_ID);
+      ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search });
+    }
   }, []);
 
   const handleMode = () => {

@@ -1,9 +1,7 @@
 import axios from "axios";
 import React, { Suspense, useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
-import TrackVisibility from "react-on-screen";
 import Layout from "../components/Layout";
-import Progress from "../components/Progress";
 import Resume from "../components/Resume";
 import Sectiontitle from "../components/Sectiontitle";
 import Smalltitle from "../components/Smalltitle";
@@ -37,18 +35,17 @@ function Resumes() {
           <div className="mi-skills-area mi-section mi-padding-top">
             <div className="container">
               <Sectiontitle title="My Skills" />
-              <div className="mi-skills">
-                <div className="row mt-30-reverse">
-                  {skills.map((skill) => (
-                      <TrackVisibility
-                          once
-                          className="col-lg-6 mt-30"
-                          key={skill.title}
-                      >
-                        <Progress title={skill.title} percentage={skill.value} />
-                      </TrackVisibility>
-                  ))}
-                </div>
+              <div className="mi-skills-categories">
+                {skills.map((skillGroup) => (
+                  <div className="mi-skill-category" key={skillGroup.category}>
+                    <h6 className="mi-skill-category-title">{skillGroup.category}</h6>
+                    <div className="mi-skill-tags">
+                      {skillGroup.items.map((item) => (
+                        <span className="mi-skill-tag" key={item}>{item}</span>
+                      ))}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

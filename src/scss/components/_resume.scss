@@ -1,6 +1,49 @@
 /*
- * Resume 
+ * Resume
  */
+
+.mi-skills-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mi-skill-category {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+
+  @media #{$layout-mobile-lg} {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.mi-skill-category-title {
+  flex: 0 0 160px;
+  color: $color-theme;
+  margin-bottom: 0;
+  font-weight: 700;
+
+  @media #{$layout-mobile-lg} {
+    flex: none;
+  }
+}
+
+.mi-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mi-skill-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid $color-border;
+  border-radius: 4px;
+  font-size: 14px;
+  color: $color-body;
+}
 
 .mi-resume {
   &-wrapper {

@@ -4,13 +4,13 @@ const database = {
   information: {
     name: "Kaylei Burke",
     aboutContent:
-      "I'm a software developer specializing in building scalable, secure solutions with Ruby on Rails, AWS, and javascript frameworks.",
+      "I'm a Senior Software Engineer and Technical Lead with 10 years of experience building large-scale web applications using Ruby on Rails, React, JavaScript, SQL, and AWS.",
     age: 24,
     phone: "",
     nationality: "American",
     language: "English, French",
     email: "",
-    address: "121 King Street, Melbourne, Australia",
+    address: "Omaha, NE (Remote)",
     freelanceStatus: "Available",
     socialLinks: {
       linkedin: "https://www.linkedin.com/in/kayleiburke",
@@ -70,12 +70,12 @@ const database = {
     },
   ],
   skills: [
-    { title: "Ruby on Rails", value: 80 },
-    { title: "JavaScript", value: 50 },
-    { title: "SQL", value: 70 },
-    { title: "AWS", value: 70 },
-    { title: "CSS", value: 50 },
-    { title: "HTML", value: 60 }
+    { category: "Languages", items: ["Ruby", "JavaScript", "TypeScript", "SQL", "C#", "Java"] },
+    { category: "Frameworks", items: ["Ruby on Rails", "React", "Vue.js", "AngularJS", "Ruby on Jets"] },
+    { category: "Cloud & DevOps", items: ["AWS", "Docker", "CircleCI", "Azure"] },
+    { category: "Databases", items: ["MySQL", "PostgreSQL", "SQL Server", "Oracle", "MongoDB", "DB2"] },
+    { category: "Auth & Security", items: ["SAML", "Shibboleth", "Okta", "Azure AD", "CSRF/XSS remediation"] },
+    { category: "Testing", items: ["RSpec", "Minitest", "Capybara"] },
   ],
   portfolios: [
     {
@@ -132,20 +132,35 @@ const database = {
     workingExperience: [
       {
         id: 1,
+        year: "12/2024 - Present",
+        position: "Senior Software Engineer",
+        company: "Ryan Specialty – Ryan Alternative Risk Division",
+        details: [
+          "Technical lead and primary engineer for Triton, a Ruby on Rails + React + MySQL insurance platform supporting underwriting, claims processing, policy administration, endorsements, bordereaux reporting, and third-party workflow integrations across the Greenhill business unit.",
+          "Lead architecture, development, production support, and roadmap planning for a platform spanning dozens of insurance business domains.",
+          "Led onboarding and technical ramp-up of two offshore developers, enabling expanded delivery capacity; serve as sole engineer between junior developers and executive leadership.",
+          "Served as primary application SME for AWS-to-Azure migration planning, infrastructure assessment, and application modernization efforts in partnership with cloud engineering teams (TEKsystems / Avanade).",
+          "Investigate and remediate AWS cloud security findings across EC2, RDS, S3, VPC networking, IAM, and data protection controls.",
+          "Maintain and extend a Python middleware service that integrates Triton with IMS policy administration systems via SOAP web services and SQL Server stored procedures, handling policy lifecycle transactions through a durable job queue.",
+          "Manage AWS infrastructure including Elastic Beanstalk, RDS, S3, Lambda, SQS, VPC, site-to-site VPN via Palo Alto firewalls, and CI/CD pipelines via CircleCI.",
+        ],
+      },
+      {
+        id: 2,
         year: "08/2023 - 10/2024",
         position: "Senior Ruby on Rails Developer (Contractor)",
         company: "New York Public Library",
         details: [
           "Contributed to the development and maintenance of a metadata management system in Ruby on Rails that populated content for the Digital Collections platform, NYPL's online archive of digitized books, images, and artifacts.",
           "Led the integration of a custom Shibboleth Single Sign-On (SSO) solution to enable seamless authentication for library patrons.",
-          "Developed a solution for Shibboleth to authenticate directly through Sierra ILS by leveraging the Sierra API for validating user credentials (barcode and PIN) and dynamically retrieving patron data. ",
+          "Developed a solution for Shibboleth to authenticate directly through Sierra ILS by leveraging the Sierra API for validating user credentials (barcode and PIN) and dynamically retrieving patron data.",
           "Collaborated closely with DevOps to set up Docker-based and EC2 testing environments, building the custom Shibboleth configuration from scratch.",
           "Managed the upgrade process from Shibboleth v3 to v5, enhancing security and creating a foundation for future integrations with resources like HathiTrust and internal NYPL applications.",
           "Successfully completed HathiTrust integration, enabling patrons to access thousands of digitized academic resources with their library credentials."
         ],
       },
       {
-        id: 2,
+        id: 3,
         year: "10/2021 - 06/2023",
         position: "Senior Software Engineer",
         company: "Techstreet",
@@ -159,7 +174,7 @@ const database = {
         ],
       },
       {
-        id: 3,
+        id: 4,
         year: "10/2020 - 04/2021",
         position: "Software Developer",
         company: "Unabridged Software",
@@ -170,7 +185,7 @@ const database = {
         ],
       },
       {
-        id: 4,
+        id: 5,
         year: "08/2018 - 01/2019",
         position: "Software Developer (Contractor)",
         company: "5&2 Studio",
@@ -180,7 +195,7 @@ const database = {
         ],
       },
       {
-        id: 5,
+        id: 6,
         year: "02/2016 - 07/2018",
         position: "Software Developer",
         company: "Voxtelesys",
@@ -191,7 +206,7 @@ const database = {
         ],
       },
       {
-        id: 6,
+        id: 7,
         year: "03/2015 - 10/2015",
         position: "Software Developer",
         company: "Mersoft Corporation",
@@ -201,7 +216,7 @@ const database = {
         ],
       },
       {
-        id: 7,
+        id: 8,
         year: "10/2014 - 03/2015",
         position: "Software Developer (Contractor)",
         company: "YRC Freight",
@@ -212,7 +227,7 @@ const database = {
         ],
       },
       {
-        id: 8,
+        id: 9,
         year: "09/2013 - 09/2014",
         position: "Software Developer",
         company: "J.B. Hunt",
@@ -245,7 +260,7 @@ const database = {
     }
   ],
   contactInfo: {
-    phoneNumbers: ["402-867-1801"],
+    phoneNumbers: ["402-909-3286"],
     emailAddress: ["info@kayleiburke.com"],
     address: "Omaha, Nebraska",
   },

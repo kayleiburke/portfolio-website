@@ -93,14 +93,13 @@ function About() {
                       Hi! I'm <span className="color-theme">{information.name}</span>
                     </h3>
                     <p>
-
-                      Throughout my career, I've contributed to a range of complex Ruby on Rails projects across various organizations, delivering scalable, high-quality solutions. I have built and managed several Rails applications, including custom CRMs, ERP systems, and digital storefronts. My experience includes balancing multiple roles across software development, infrastructure, and DevOps, working closely with cloud providers to optimize environments and ensure smooth deployments.
+                      I'm a Senior Software Engineer and Technical Lead with 10 years of experience designing, building, and operating large-scale web applications. My work spans Ruby on Rails, React, JavaScript, SQL, and AWS - from greenfield builds to legacy modernization, cloud infrastructure, and complex third-party integrations.
                     </p>
                     <p>
-                      Currently, I am a senior developer at the New York Public Library, where I developed a custom Shibboleth Single Sign-On solution integrated with the Sierra ILS. This project required extensive research and collaboration to overcome challenges in modifying Shibboleth configurations and integrating with HathiTrust, enabling library patrons to access a vast repository of digitized texts.
+                      Currently I serve as the technical lead and primary engineer for Triton, a business-critical insurance platform at Ryan Specialty, supporting underwriting, claims, policy administration, and workflow automation for enterprise clients nationwide. I take full ownership of architecture, production systems, cloud infrastructure, and delivery planning - and coordinate directly with executives, product owners, and external vendors.
                     </p>
                     <p>
-                      Reach out to me through the <Link to="/contact">contact page</Link> page if you'd like to collaborate, discuss projects, or connect!  🎉
+                      Reach out to me through the <Link to="/contact">contact page</Link> if you'd like to collaborate, discuss projects, or connect!
                     </p>
                     <a href={information.cvfile} className="mi-button">
                       Download CV

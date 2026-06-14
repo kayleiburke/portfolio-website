@@ -28,6 +28,7 @@ function Contact() {
   });
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false); // New loading state
 
   useEffect(() => {
     axios.get("/api/contactinfo").then((response) => {
@@ -73,6 +74,7 @@ function Contact() {
     }
 
     setError(false);
+    setLoading(true); // Set loading to true when form is submitted
 
     try {
       // Execute reCAPTCHA v3 to get the token
@@ -97,6 +99,8 @@ function Contact() {
       console.error("Error:", error);
       setError(true);
       setMessage("An error occurred. Please try again later.");
+    } finally {
+      setLoading(false); // Set loading to false after API call completes
     }
   };
 
@@ -118,132 +122,132 @@ function Contact() {
   };
 
   return (
-    <Layout>
-      <Helmet>
-        <title>Contact - Kaylei Burke</title>
-        <meta name="description" content="Kaylei Burke Contact Page" />
-      </Helmet>
-      <Suspense fallback={<Spinner />}>
-        <div className="mi-contact-area mi-section mi-padding-top mi-padding-bottom">
-          <div className="container">
-            <Sectiontitle title="Contact Me" />
-            <div className="row">
-              <div className="col-lg-6">
-                <div className="mi-contact-formwrapper">
-                  <h4>Get In Touch</h4>
-                  <form
-                    action="#"
-                    className="mi-form mi-contact-form"
-                    onSubmit={submitHandler}
-                  >
-                    <div className="mi-form-field">
-                      <label htmlFor="contact-form-name">
-                        Enter your name*
-                      </label>
-                      <input
-                          onChange={handleChange}
-                          type="text"
-                          name="name"
-                          id="contact-form-name"
-                          value={formdata.name}
-                      />
-                    </div>
-                    <div className="mi-form-field">
-                      <label htmlFor="contact-form-email">
-                        Enter your email*
-                      </label>
-                      <input
-                        onChange={handleChange}
-                        type="text"
-                        name="email"
-                        id="contact-form-email"
-                        value={formdata.email}
-                      />
-                    </div>
-                    <div className="mi-form-field">
-                      <label htmlFor="contact-form-subject">
-                        Enter your subject*
-                      </label>
-                      <input
-                        onChange={handleChange}
-                        type="text"
-                        name="subject"
-                        id="contact-form-subject"
-                        value={formdata.subject}
-                      />
-                    </div>
-                    <div className="mi-form-field">
-                      <label htmlFor="contact-form-message">
-                        Enter your Message*
-                      </label>
-                      <textarea
-                        onChange={handleChange}
-                        name="message"
-                        id="contact-form-message"
-                        cols="30"
-                        rows="6"
-                        value={formdata.message}
-                      ></textarea>
-                    </div>
-                    <div className="mi-form-field">
-                      <button className="mi-button" type="submit">
-                        Send Mail
-                      </button>
-                    </div>
-                  </form>
-                  {handleAlerts()}
+      <Layout>
+        <Helmet>
+          <title>Contact - Kaylei Burke</title>
+          <meta name="description" content="Kaylei Burke Contact Page" />
+        </Helmet>
+        <Suspense fallback={<Spinner />}>
+          <div className="mi-contact-area mi-section mi-padding-top mi-padding-bottom">
+            <div className="container">
+              <Sectiontitle title="Contact Me" />
+              <div className="row">
+                <div className="col-lg-6">
+                  <div className="mi-contact-formwrapper">
+                    <h4>Get In Touch</h4>
+                    <form
+                        action="#"
+                        className="mi-form mi-contact-form"
+                        onSubmit={submitHandler}
+                    >
+                      <div className="mi-form-field">
+                        <label htmlFor="contact-form-name">
+                          Enter your name*
+                        </label>
+                        <input
+                            onChange={handleChange}
+                            type="text"
+                            name="name"
+                            id="contact-form-name"
+                            value={formdata.name}
+                        />
+                      </div>
+                      <div className="mi-form-field">
+                        <label htmlFor="contact-form-email">
+                          Enter your email*
+                        </label>
+                        <input
+                            onChange={handleChange}
+                            type="text"
+                            name="email"
+                            id="contact-form-email"
+                            value={formdata.email}
+                        />
+                      </div>
+                      <div className="mi-form-field">
+                        <label htmlFor="contact-form-subject">
+                          Enter your subject*
+                        </label>
+                        <input
+                            onChange={handleChange}
+                            type="text"
+                            name="subject"
+                            id="contact-form-subject"
+                            value={formdata.subject}
+                        />
+                      </div>
+                      <div className="mi-form-field">
+                        <label htmlFor="contact-form-message">
+                          Enter your Message*
+                        </label>
+                        <textarea
+                            onChange={handleChange}
+                            name="message"
+                            id="contact-form-message"
+                            cols="30"
+                            rows="6"
+                            value={formdata.message}
+                        ></textarea>
+                      </div>
+                      <div className="mi-form-field">
+                        <button className="mi-button" type="submit" disabled={loading}>
+                          {loading ? <Spinner /> : "Send Mail"}
+                        </button>
+                      </div>
+                    </form>
+                    {handleAlerts()}
+                  </div>
                 </div>
-              </div>
-              <div className="col-lg-6">
-                <div className="mi-contact-info">
-                  {phoneNumbers.length > 0 && (
-                      <div className="mi-contact-infoblock">
+                <div className="col-lg-6">
+                  <div className="mi-contact-info">
+                    {phoneNumbers.length > 0 && (
+                        <div className="mi-contact-infoblock">
                       <span className="mi-contact-infoblock-icon">
                         <Icon.Phone />
                       </span>
-                      <div className="mi-contact-infoblock-content">
-                        <h6>Phone</h6>
-                        {phoneNumbers.map((phoneNumber) => (
-                          <p key={phoneNumber}>
-                            <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {emailAddress.length > 0 && (
-                      <div className="mi-contact-infoblock">
+                          <div className="mi-contact-infoblock-content">
+                            <h6>Phone</h6>
+                            {phoneNumbers.map((phoneNumber) => (
+                                <p key={phoneNumber}>
+                                  <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
+                                </p>
+                            ))}
+                          </div>
+                        </div>
+                    )}
+                    {emailAddress.length > 0 && (
+                        <div className="mi-contact-infoblock">
                       <span className="mi-contact-infoblock-icon">
                         <Icon.Mail />
                       </span>
-                      <div className="mi-contact-infoblock-content">
-                        <h6>Email</h6>
-                        {emailAddress.map((email) => (
-                          <p key={email}>
-                            <a href={`mailto:${email}`}>{email}</a>
-                          </p>
-                        ))}
-                      </div>
-                    </div>
-                )}
-                {address && (
-                    <div className="mi-contact-infoblock">
+                          <div className="mi-contact-infoblock-content">
+                            <h6>Email</h6>
+                            {emailAddress.map((email) => (
+                                <p key={email}>
+                                  <a href={`mailto:${email}`}>{email}</a>
+                                </p>
+                            ))}
+                          </div>
+                        </div>
+                    )}
+                    {address && (
+                        <div className="mi-contact-infoblock">
                       <span className="mi-contact-infoblock-icon">
                         <Icon.MapPin />
                       </span>
-                      <div className="mi-contact-infoblock-content">
-                        <h6>Address</h6>
-                        <p>{address}</p>
-                      </div>
-                    </div>
-                  )}
+                          <div className="mi-contact-infoblock-content">
+                            <h6>Address</h6>
+                            <p>{address}</p>
+                          </div>
+                        </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </Suspense>
-    </Layout>
+        </Suspense>
+      </Layout>
   );
 }
 
