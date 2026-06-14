@@ -19,7 +19,7 @@ www.kayleiburke.com
 ## Features
 
 - **Responsive Design**: Adaptable layout for desktop, tablet, and mobile viewing.
-- **Skills and Experience Display**: Interactive and customizable skills bars, with detailed sections for work experience and education.
+- **Skills and Experience Display**: Categorized skill tags with detailed sections for work experience and education.
 - **Dynamic Routing**: Leveraging React Router for client-side navigation.
 - **SEO-Friendly**: Metadata and optimized HTML for search engine visibility.
 
@@ -27,9 +27,8 @@ www.kayleiburke.com
 
 - **Frontend**: React.js, Axios, React Router, React Helmet
 - **UI Components**: Custom components from the Chester template, with additional elements for displaying data dynamically
-- **Server**: Nginx for static file serving, configured to handle client-side routing for a single-page application (SPA)
-- **Deployment**: AWS (Amazon Web Services), including ECS (Elastic Container Service) for containerized deployment
-- **CI/CD**: GitHub Actions for automated testing, building, and deployment
+- **Deployment**: AWS S3 (static hosting) + CloudFront (CDN)
+- **CI/CD**: GitHub Actions for automated build and deployment
 
 ## Setup and Installation
 
@@ -66,22 +65,22 @@ www.kayleiburke.com
 
 ## AWS Deployment
 
-This project is deployed on AWS, using ECS (Elastic Container Service) and Nginx as the server to host the React application. Here are the high-level steps used in deploying this project on AWS:
+This project is deployed on AWS using S3 for static hosting and CloudFront as the CDN. Here are the high-level steps:
 
-1. **Dockerize the Application**:  
-   The application is containerized with a Dockerfile, which includes an Nginx server configured for client-side routing.
+1. **Build the React App**:  
+   GitHub Actions builds the production bundle via `npm run build`.
 
-2. **Push to Amazon ECR (Elastic Container Registry)**:  
-   The Docker image is stored in ECR for easy access by ECS.
+2. **Sync to S3**:  
+   The build output is synced to an S3 bucket configured for static website hosting.
 
-3. **Deploy with Amazon ECS**:  
-   ECS orchestrates the deployment, managing the container lifecycle and load balancing.
+3. **Invalidate CloudFront Cache**:  
+   After each deploy, a CloudFront cache invalidation is triggered to ensure the latest build is served immediately.
 
 4. **Domain Configuration**:  
-   The custom domain (`kayleiburke.com`) was registered on GoDaddy, with DNS records pointing to AWS.
+   The custom domain (`kayleiburke.com`) was registered on GoDaddy, with DNS records pointing to the CloudFront distribution.
 
-5. **Continuous Integration with GitHub Actions**:  
-   GitHub Actions is used for automated CI/CD workflows. The GitHub Actions pipeline builds the application, runs tests, and pushes the Docker image to Amazon ECR on each update. This ensures that the latest changes are automatically deployed to AWS ECS.
+5. **Continuous Deployment with GitHub Actions**:  
+   Every push to `main` automatically triggers the build, S3 sync, and CloudFront invalidation.
 
 ## Credits
 
