@@ -135,6 +135,7 @@ const database = {
         year: "12/2024 - Present",
         position: "Senior Software Engineer",
         company: "Ryan Specialty – Ryan Alternative Risk Division",
+        companyNote: "Contractor via TEKsystems Dec 2024–Sep 2025, converted to FTE Sep 2025",
         details: [
           "Technical lead and primary engineer for Triton, a Ruby on Rails + React + MySQL insurance platform supporting underwriting, claims processing, policy administration, endorsements, bordereaux reporting, and third-party workflow integrations across the Greenhill business unit.",
           "Lead architecture, development, production support, and roadmap planning for a platform spanning dozens of insurance business domains.",
