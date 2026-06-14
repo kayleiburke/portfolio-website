@@ -40,6 +40,7 @@ function Portfolios() {
           <div className="mi-about mi-section mi-padding-top mi-padding-bottom">
             <div className="container">
               <Sectiontitle title="Portfolio" />
+              <p className="mi-portfolio-intro">A collection of small personal and sample projects built over the years to explore different technologies and frameworks. These are not representative of the scale or complexity of my professional work, but each is independently deployed and demonstrates a small subset of practical skills across full-stack development, API integration, and cloud deployment.</p>
               <PortfoliosView portfolios={currentPortfolios} />
               {!(portfolios.length > portfoliosPerPage) ? null : (
                   <Pagination
