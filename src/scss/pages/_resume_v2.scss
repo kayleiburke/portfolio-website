@@ -1,0 +1,185 @@
+.mi-resume-v2 {
+  &-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 56px;
+    flex-wrap: wrap;
+  }
+
+  &-section {
+    margin-bottom: 64px;
+  }
+
+  &-skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+
+    @media #{$layout-tablet} { grid-template-columns: repeat(2, 1fr); }
+    @media #{$layout-mobile-lg} { grid-template-columns: 1fr; }
+  }
+
+  &-skill-card {
+    padding: 20px;
+  }
+
+  &-skill-category {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $color-theme;
+    margin: 0 0 16px;
+  }
+
+  &-skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  &-timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &-timeline-line {
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, $color-theme, $color-border);
+
+    @media #{$layout-mobile-lg} { display: none; }
+  }
+
+  &-entry {
+    display: flex;
+    gap: 24px;
+    position: relative;
+  }
+
+  &-dot {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: $color-bg-body;
+    border: 2px solid $color-theme;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 6px;
+    z-index: 1;
+
+    @media #{$layout-mobile-lg} { display: none; }
+  }
+
+  &-dot-inner {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: $color-theme;
+  }
+
+  &-card {
+    flex: 1;
+    padding: 20px 24px;
+  }
+
+  &-card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+
+  &-job-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $color-heading;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  &-job-company {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $color-theme;
+    margin: 4px 0 0;
+  }
+
+  &-job-note {
+    font-size: 0.75rem;
+    font-style: italic;
+    color: $color-body;
+    margin: 4px 0 0;
+  }
+
+  &-bullets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &-bullet {
+    display: flex;
+    gap: 8px;
+    font-size: 0.875rem;
+    color: $color-body;
+    line-height: 1.6;
+  }
+
+  &-bullet-icon {
+    color: $color-theme;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  &-edu-card {
+    padding: 20px 24px;
+  }
+
+  &-edu-inner {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  &-edu-icon {
+    flex-shrink: 0;
+  }
+
+  &-edu-year {
+    font-size: 0.875rem;
+    color: $color-body;
+    margin: 4px 0 0;
+  }
+
+  &-edu-award {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 0.875rem;
+    color: $color-body;
+
+    p { margin: 0; }
+  }
+
+  &-award-icon {
+    color: $color-theme;
+    flex-shrink: 0;
+  }
+}

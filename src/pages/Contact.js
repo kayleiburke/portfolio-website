@@ -1,10 +1,8 @@
 import axios from "axios";
-import React, { Suspense, useEffect, useState } from "react";
-import * as Icon from "react-feather";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { Mail, MapPin, Linkedin, Github, Send, CheckCircle } from "lucide-react";
 import Layout from "../components/Layout";
-import Sectiontitle from "../components/Sectiontitle";
-import Spinner from "../components/Spinner";
 
 const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
 
@@ -17,9 +15,6 @@ const toggleCaptchaBadge = (show) => {
 };
 
 function Contact() {
-  const [phoneNumbers, setPhoneNumbers] = useState([]);
-  const [emailAddress, setEmailAddress] = useState([]);
-  const [address, setAddress] = useState([]);
   const [formdata, setFormdata] = useState({
     name: "",
     email: "",
@@ -28,15 +23,10 @@ function Contact() {
   });
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false); // New loading state
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   useEffect(() => {
-    axios.get("/api/contactinfo").then((response) => {
-      setPhoneNumbers(response.data.phoneNumbers);
-      setEmailAddress(response.data.emailAddress);
-      setAddress(response.data.address);
-    });
-
     // Load the reCAPTCHA v3 script
     const script = document.createElement("script");
     script.src = `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`;
@@ -74,7 +64,7 @@ function Contact() {
     }
 
     setError(false);
-    setLoading(true); // Set loading to true when form is submitted
+    setLoading(true);
 
     try {
       // Execute reCAPTCHA v3 to get the token
@@ -89,18 +79,19 @@ function Contact() {
       });
 
       if (response.ok) {
+        setSuccess(true);
         setMessage("Your message has been sent!");
         setFormdata({ name: "", email: "", subject: "", message: "" });
       } else {
         setError(true);
         setMessage("Failed to send message.");
       }
-    } catch (error) {
-      console.error("Error:", error);
+    } catch (err) {
+      console.error("Error:", err);
       setError(true);
       setMessage("An error occurred. Please try again later.");
     } finally {
-      setLoading(false); // Set loading to false after API call completes
+      setLoading(false);
     }
   };
 
@@ -111,143 +102,167 @@ function Contact() {
     });
   };
 
-  const handleAlerts = () => {
-    if (error && message) {
-      return <div className="alert alert-danger mt-4">{message}</div>;
-    } else if (!error && message) {
-      return <div className="alert alert-success mt-4">{message}</div>;
-    } else {
-      return null;
-    }
-  };
-
   return (
-      <Layout>
-        <Helmet>
-          <title>Contact - Kaylei Burke</title>
-          <meta name="description" content="Kaylei Burke Contact Page" />
-        </Helmet>
-        <Suspense fallback={<Spinner />}>
-          <div className="mi-contact-area mi-section mi-padding-top mi-padding-bottom">
-            <div className="container">
-              <Sectiontitle title="Contact Me" />
-              <div className="row">
-                <div className="col-lg-6">
-                  <div className="mi-contact-formwrapper">
-                    <h4>Get In Touch</h4>
-                    <form
-                        action="#"
-                        className="mi-form mi-contact-form"
-                        onSubmit={submitHandler}
-                    >
-                      <div className="mi-form-field">
-                        <label htmlFor="contact-form-name">
-                          Enter your name*
-                        </label>
-                        <input
-                            onChange={handleChange}
-                            type="text"
-                            name="name"
-                            id="contact-form-name"
-                            value={formdata.name}
-                        />
-                      </div>
-                      <div className="mi-form-field">
-                        <label htmlFor="contact-form-email">
-                          Enter your email*
-                        </label>
-                        <input
-                            onChange={handleChange}
-                            type="text"
-                            name="email"
-                            id="contact-form-email"
-                            value={formdata.email}
-                        />
-                      </div>
-                      <div className="mi-form-field">
-                        <label htmlFor="contact-form-subject">
-                          Enter your subject*
-                        </label>
-                        <input
-                            onChange={handleChange}
-                            type="text"
-                            name="subject"
-                            id="contact-form-subject"
-                            value={formdata.subject}
-                        />
-                      </div>
-                      <div className="mi-form-field">
-                        <label htmlFor="contact-form-message">
-                          Enter your Message*
-                        </label>
-                        <textarea
-                            onChange={handleChange}
-                            name="message"
-                            id="contact-form-message"
-                            cols="30"
-                            rows="6"
-                            value={formdata.message}
-                        ></textarea>
-                      </div>
-                      <div className="mi-form-field">
-                        <button className="mi-button" type="submit" disabled={loading}>
-                          {loading ? <Spinner /> : "Send Mail"}
-                        </button>
-                      </div>
-                    </form>
-                    {handleAlerts()}
-                  </div>
+    <Layout>
+      <Helmet>
+        <title>Contact - Kaylei Burke</title>
+        <meta name="description" content="Kaylei Burke Contact Page" />
+      </Helmet>
+      <div className="mi-page-container">
+        <div className="mi-contact-v2-header">
+          <p className="mi-section-label">Contact</p>
+          <h1 className="mi-section-heading">
+            Get In <span className="mi-gradient-text">Touch</span>
+          </h1>
+        </div>
+
+        <div className="mi-contact-v2-grid">
+          {/* Left column: info + social */}
+          <div className="mi-contact-v2-sidebar">
+            <div className="mi-card mi-contact-v2-info-card">
+              <h3 className="mi-contact-v2-card-title">Contact Info</h3>
+              <div className="mi-contact-v2-info-item">
+                <div className="mi-icon-box mi-contact-v2-info-icon">
+                  <Mail size={18} />
                 </div>
-                <div className="col-lg-6">
-                  <div className="mi-contact-info">
-                    {phoneNumbers.length > 0 && (
-                        <div className="mi-contact-infoblock">
-                      <span className="mi-contact-infoblock-icon">
-                        <Icon.Phone />
-                      </span>
-                          <div className="mi-contact-infoblock-content">
-                            <h6>Phone</h6>
-                            {phoneNumbers.map((phoneNumber) => (
-                                <p key={phoneNumber}>
-                                  <a href={`tel:${phoneNumber}`}>{phoneNumber}</a>
-                                </p>
-                            ))}
-                          </div>
-                        </div>
-                    )}
-                    {emailAddress.length > 0 && (
-                        <div className="mi-contact-infoblock">
-                      <span className="mi-contact-infoblock-icon">
-                        <Icon.Mail />
-                      </span>
-                          <div className="mi-contact-infoblock-content">
-                            <h6>Email</h6>
-                            {emailAddress.map((email) => (
-                                <p key={email}>
-                                  <a href={`mailto:${email}`}>{email}</a>
-                                </p>
-                            ))}
-                          </div>
-                        </div>
-                    )}
-                    {address && (
-                        <div className="mi-contact-infoblock">
-                      <span className="mi-contact-infoblock-icon">
-                        <Icon.MapPin />
-                      </span>
-                          <div className="mi-contact-infoblock-content">
-                            <h6>Address</h6>
-                            <p>{address}</p>
-                          </div>
-                        </div>
-                    )}
-                  </div>
+                <div>
+                  <p className="mi-contact-v2-info-label">Email</p>
+                  <a href="mailto:info@kayleiburke.com" className="mi-contact-v2-info-value">
+                    info@kayleiburke.com
+                  </a>
+                </div>
+              </div>
+              <div className="mi-contact-v2-info-item">
+                <div className="mi-icon-box mi-contact-v2-info-icon">
+                  <MapPin size={18} />
+                </div>
+                <div>
+                  <p className="mi-contact-v2-info-label">Location</p>
+                  <p className="mi-contact-v2-info-value">Omaha, Nebraska</p>
                 </div>
               </div>
             </div>
+
+            <div className="mi-card mi-contact-v2-social-card">
+              <h3 className="mi-contact-v2-card-title">Connect</h3>
+              <div className="mi-contact-v2-social-links">
+                <a
+                  href="https://www.linkedin.com/in/kayleiburke"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mi-contact-v2-social-link"
+                >
+                  <Linkedin size={18} />
+                  <span>LinkedIn</span>
+                </a>
+                <a
+                  href="https://github.com/kayleiburke"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mi-contact-v2-social-link"
+                >
+                  <Github size={18} />
+                  <span>GitHub</span>
+                </a>
+              </div>
+            </div>
           </div>
-        </Suspense>
-      </Layout>
+
+          {/* Right column: form */}
+          <div className="mi-card mi-contact-v2-form-card">
+            {success ? (
+              <div className="mi-contact-v2-success">
+                <CheckCircle size={48} className="mi-contact-v2-success-icon" />
+                <h3 className="mi-contact-v2-success-title">Message Sent!</h3>
+                <p className="mi-contact-v2-success-text">
+                  Thanks for reaching out. I'll get back to you as soon as possible.
+                </p>
+              </div>
+            ) : (
+              <form onSubmit={submitHandler} className="mi-contact-v2-form">
+                <h3 className="mi-contact-v2-card-title">Send a Message</h3>
+                <div className="mi-contact-v2-fields">
+                  <div className="mi-contact-v2-field">
+                    <label htmlFor="contact-name" className="mi-contact-v2-label">
+                      Name
+                    </label>
+                    <input
+                      id="contact-name"
+                      type="text"
+                      name="name"
+                      value={formdata.name}
+                      onChange={handleChange}
+                      placeholder="Your name"
+                      className="mi-contact-v2-input"
+                    />
+                  </div>
+                  <div className="mi-contact-v2-field">
+                    <label htmlFor="contact-email" className="mi-contact-v2-label">
+                      Email
+                    </label>
+                    <input
+                      id="contact-email"
+                      type="text"
+                      name="email"
+                      value={formdata.email}
+                      onChange={handleChange}
+                      placeholder="your@email.com"
+                      className="mi-contact-v2-input"
+                    />
+                  </div>
+                  <div className="mi-contact-v2-field mi-contact-v2-field-full">
+                    <label htmlFor="contact-subject" className="mi-contact-v2-label">
+                      Subject
+                    </label>
+                    <input
+                      id="contact-subject"
+                      type="text"
+                      name="subject"
+                      value={formdata.subject}
+                      onChange={handleChange}
+                      placeholder="What's this about?"
+                      className="mi-contact-v2-input"
+                    />
+                  </div>
+                  <div className="mi-contact-v2-field mi-contact-v2-field-full">
+                    <label htmlFor="contact-message" className="mi-contact-v2-label">
+                      Message
+                    </label>
+                    <textarea
+                      id="contact-message"
+                      name="message"
+                      value={formdata.message}
+                      onChange={handleChange}
+                      placeholder="Your message..."
+                      rows={6}
+                      className="mi-contact-v2-textarea"
+                    />
+                  </div>
+                </div>
+
+                {error && message && (
+                  <p className="mi-contact-v2-error">{message}</p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="mi-btn-primary mi-contact-v2-submit"
+                >
+                  {loading ? (
+                    <span className="mi-contact-v2-loading">Sending...</span>
+                  ) : (
+                    <>
+                      <Send size={16} /> Send Message
+                    </>
+                  )}
+                </button>
+              </form>
+            )}
+          </div>
+        </div>
+      </div>
+    </Layout>
   );
 }
 

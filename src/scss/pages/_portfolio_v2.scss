@@ -1,0 +1,121 @@
+.mi-portfolio-v2 {
+  &-header {
+    margin-bottom: 24px;
+  }
+
+  &-intro {
+    max-width: 750px;
+    margin-bottom: 48px;
+
+    p {
+      color: $color-body;
+      font-size: 1rem;
+      line-height: 1.75;
+      margin: 0 0 8px;
+    }
+  }
+
+  &-note {
+    font-size: 0.875rem !important;
+    margin-top: 4px !important;
+  }
+
+  &-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+
+    @media #{$layout-tablet} { grid-template-columns: repeat(2, 1fr); }
+    @media #{$layout-mobile-lg} { grid-template-columns: 1fr; }
+  }
+
+  &-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  &-image {
+    position: relative;
+    height: 176px;
+    overflow: hidden;
+    background: #1e293b;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+  }
+
+  &-heroku-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 9999px;
+    background: rgba($color-bg-body, 0.9);
+    border: 1px solid $color-border;
+    color: $color-body;
+    font-size: 0.7rem;
+    font-weight: 500;
+    backdrop-filter: blur(4px);
+
+    svg { color: $color-theme; }
+  }
+
+  &-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: $color-heading;
+    margin: 0 0 8px;
+  }
+
+  &-desc {
+    font-size: 0.875rem;
+    color: $color-body;
+    line-height: 1.6;
+    flex: 1;
+    margin: 0;
+  }
+
+  &-links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid $color-border;
+  }
+
+  &-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: $color-body;
+    transition: color 0.2s;
+
+    &:hover { color: $color-heading; }
+
+    &-accent {
+      color: $color-theme;
+      &:hover { color: rgba($color-theme, 0.8); }
+    }
+  }
+}

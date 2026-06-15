@@ -167,6 +167,150 @@
   }
 }
 
+// Page container (replaces sidebar-aware layout)
+.mi-main {
+  min-height: calc(100vh - 70px - 57px); // viewport minus header and footer
+}
+
+.mi-page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 80px 30px 80px;
+
+  @media #{$layout-tablet} { padding: 60px 20px 60px; }
+  @media #{$layout-mobile-lg} { padding: 40px 16px 40px; }
+}
+
+// Grid background (used on home hero)
+.mi-grid-bg {
+  background-image:
+    linear-gradient(rgba($color-border, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba($color-border, 0.3) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+// Gradient text
+.mi-gradient-text {
+  background: linear-gradient(135deg, #2dd4bf, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Card with hover lift
+.mi-card {
+  background: #1e293b;
+  border: 1px solid $color-border;
+  border-radius: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(45, 212, 191, 0.1);
+  }
+}
+
+// Accent icon box
+.mi-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 0.75rem;
+  background: rgba($color-theme, 0.1);
+  border: 1px solid rgba($color-theme, 0.2);
+  color: $color-theme;
+}
+
+// Page section heading pattern (accent line + title)
+.mi-section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: $color-theme;
+  margin-bottom: 12px;
+}
+
+.mi-section-heading {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: $color-heading;
+  line-height: 1.15;
+  margin-bottom: 0;
+}
+
+.mi-section-line-heading {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: $color-heading;
+  margin-bottom: 32px;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: $color-theme;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+}
+
+// Tag/pill
+.mi-tag {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid $color-border;
+  background: #1e293b;
+  color: $color-body;
+  transition: border-color 0.2s, color 0.2s;
+
+  &:hover {
+    border-color: rgba($color-theme, 0.5);
+    color: $color-heading;
+  }
+}
+
+// Badge (e.g. date pill on resume)
+.mi-badge {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border: 1px solid $color-border;
+  background: #1e293b;
+  color: $color-body;
+  white-space: nowrap;
+}
+
+// Footer
+.mi-footer {
+  border-top: 1px solid $color-border;
+  background: $color-bg-body;
+
+  &-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 20px 30px;
+    text-align: center;
+
+    p {
+      color: $color-body;
+      font-size: 0.875rem;
+      margin: 0;
+    }
+  }
+}
+
 // Spinner
 @keyframes spinner {
   0% {
