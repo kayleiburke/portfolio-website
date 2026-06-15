@@ -63,7 +63,7 @@ function Portfolios() {
                     )}
                     {project.githubUrl && (
                       <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="mi-portfolio-v2-link">
-                        <Github size={14} /> Code
+                        <Github size={14} /> {project.backendUrl ? "Frontend" : "Code"}
                       </a>
                     )}
                     {project.backendUrl && (
