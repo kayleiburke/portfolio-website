@@ -7,6 +7,8 @@ function Portfolio(props) {
     const [toggler, setToggler] = useState(false);
     const { title, subtitle, imageUrl, largeImageUrl, githubUrl, url, backendUrl, creditsUrl } = props.content;
 
+    const isHeroku = url && url.includes("herokuapp.com");
+
     const handleToggler = (value) => {
         setToggler(value);
     };
@@ -54,6 +56,11 @@ function Portfolio(props) {
             {subtitle ? (
                 <h6 dangerouslySetInnerHTML={{ __html: subtitle }}></h6>
             ) : null}
+            {isHeroku && (
+                <p className="mi-portfolio-heroku-note">
+                    <Icon.Clock size={12} /> May take ~30s to load on first visit
+                </p>
+            )}
             {!largeImageUrl ? null : (
                 <FsLightbox toggler={toggler} sources={largeImageUrl} />
             )}

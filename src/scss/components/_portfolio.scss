@@ -15,6 +15,18 @@
   margin-bottom: 30px;
 }
 
+.mi-portfolio-heroku-note {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
+  font-style: italic;
+  color: $color-body;
+  margin-top: 6px;
+  margin-bottom: 0;
+  opacity: 0.75;
+}
+
 .mi-portfolio {
   transition: $transition;
   visibility: hidden;
