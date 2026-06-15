@@ -83,8 +83,7 @@ const database = {
       title: "Portfolio Website",
       subtitle: "This website! Built with React and custom SCSS, deployed on AWS S3 + CloudFront via GitHub Actions.",
       imageUrl: "/images/portfolio-website.png",
-      githubUrl: "https://github.com/kayleiburke/portfolio-website",
-      url: "https://kayleiburke.com"
+      githubUrl: "https://github.com/kayleiburke/portfolio-website"
     },
     {
       id: 2,
