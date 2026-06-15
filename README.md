@@ -1,6 +1,6 @@
 # Kaylei Burke Portfolio Website
 
-This is a personal portfolio website for showcasing my work experience, skills, and projects. The initial design was based on the [Chester - React Personal Portfolio Template](https://themeforest.net/item/chester-react-personal-portfolio-template/24952954?utm_source=Iterable&utm_medium=email&utm_campaign=market_email_workflow_t_orderconfirmation_all), with customizations made to reflect my background and professional experience. The project is deployed on AWS, utilizing a custom domain and cloud-based infrastructure.
+A personal portfolio website showcasing my work experience, skills, and projects. Originally scaffolded from the Chester React Personal Portfolio Template, the design has since been fully replaced with a custom dark-mode layout built from scratch. Deployed on AWS S3 + CloudFront with automated CI/CD via GitHub Actions.
 
 ## Table of Contents
 
@@ -26,7 +26,7 @@ www.kayleiburke.com
 ## Technologies
 
 - **Frontend**: React.js, Axios, React Router, React Helmet
-- **UI Components**: Custom components from the Chester template, with additional elements for displaying data dynamically
+- **UI Components**: Fully custom components and SCSS - dark slate + teal design with Inter font, lucide-react icons, card-based layouts, and a vertical timeline
 - **Deployment**: AWS S3 (static hosting) + CloudFront (CDN)
 - **CI/CD**: GitHub Actions for automated build and deployment
 
@@ -84,4 +84,4 @@ This project is deployed on AWS using S3 for static hosting and CloudFront as th
 
 ## Credits
 
-- **Template**: [Chester - React Personal Portfolio Template](https://themeforest.net/item/chester-react-personal-portfolio-template/24952954?utm_source=Iterable&utm_medium=email&utm_campaign=market_email_workflow_t_orderconfirmation_all) by ThemeForest
+- **Original scaffold**: [Chester - React Personal Portfolio Template](https://themeforest.net/item/chester-react-personal-portfolio-template/24952954?utm_source=Iterable&utm_medium=email&utm_campaign=market_email_workflow_t_orderconfirmation_all) by ThemeForest (design has since been fully replaced)

@@ -45,7 +45,7 @@ function About() {
                 />
               </div>
               <div className="mi-about-v2-badge">
-                <p className="mi-about-v2-badge-num">10+</p>
+                <p className="mi-about-v2-badge-num">10</p>
                 <p className="mi-about-v2-badge-label">Years Exp.</p>
               </div>
             </div>
@@ -54,10 +54,10 @@ function About() {
           {/* Bio */}
           <div className="mi-about-v2-bio-col">
             <p className="mi-about-v2-para">
-              I'm a Senior Software Engineer and Technical Lead with 10 years of experience designing, building, and operating large-scale web applications. My work spans Ruby on Rails, React, JavaScript, SQL, and AWS — from greenfield builds to legacy modernization, cloud infrastructure, and complex third-party integrations.
+              I'm a Senior Software Engineer and Technical Lead with 10 years of experience designing, building, and operating large-scale web applications. My work spans Ruby on Rails, React, JavaScript, SQL, and AWS - from greenfield builds to legacy modernization, cloud infrastructure, and complex third-party integrations.
             </p>
             <p className="mi-about-v2-para">
-              Currently I serve as the technical lead and primary engineer for Triton, a business-critical insurance platform at Ryan Specialty, supporting underwriting, claims, policy administration, and workflow automation for enterprise clients nationwide. I take full ownership of architecture, production systems, cloud infrastructure, and delivery planning — and coordinate directly with executives, product owners, and external vendors.
+              Currently I serve as the technical lead and primary engineer for Triton, a business-critical insurance platform at Ryan Specialty, supporting underwriting, claims, policy administration, and workflow automation for enterprise clients nationwide. I take full ownership of architecture, production systems, cloud infrastructure, and delivery planning - and coordinate directly with executives, product owners, and external vendors.
             </p>
             <p className="mi-about-v2-para">
               Reach out through the <Link to="/contact">contact page</Link> if you'd like to collaborate, discuss projects, or connect!

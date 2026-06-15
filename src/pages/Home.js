@@ -31,7 +31,7 @@ function Home({ lightMode }) {
             Hi, I'm <span className="mi-gradient-text">{information.name || "Kaylei Burke"}</span>
           </h1>
           <p className="mi-home-tagline">
-            {information.aboutContent || "10 years building large-scale web applications — from greenfield products to legacy modernization, cloud infrastructure, and complex integrations."}
+            {information.aboutContent || "10 years building large-scale web applications - from greenfield products to legacy modernization, cloud infrastructure, and complex integrations."}
           </p>
           <div className="mi-home-buttons">
             <Link to="/portfolios" className="mi-btn-primary">
@@ -56,7 +56,7 @@ function Home({ lightMode }) {
       <div className="mi-home-stats">
         <div className="mi-home-stats-inner">
           {[
-            { icon: <Code2 size={24} />, stat: "10+ Years", sub: "Professional Engineering" },
+            { icon: <Code2 size={24} />, stat: "10 Years", sub: "Professional Engineering" },
             { icon: <Server size={24} />, stat: "Full Stack", sub: "Rails · React · SQL · AWS" },
             { icon: <Cloud size={24} />, stat: "Technical Lead", sub: "Architecture · Mentorship · Delivery" },
           ].map(({ icon, stat, sub }) => (

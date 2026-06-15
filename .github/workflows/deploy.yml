@@ -3,11 +3,11 @@ name: Deploy legacy site to S3 + CloudFront (legacy.kayleiburke.com)
 # This deploys the legacy portfolio to legacy.kayleiburke.com.
 #
 # Required GitHub secrets for this repo:
-#   AWS_ACCESS_KEY_ID              — AWS IAM credentials
-#   AWS_SECRET_ACCESS_KEY          — AWS IAM credentials
-#   S3_BUCKET_NAME                 — S3 bucket for the legacy site
-#   CLOUDFRONT_DISTRIBUTION_ID     — CloudFront distribution serving legacy.kayleiburke.com
-#   REACT_APP_GA_MEASUREMENT_ID    — Google Analytics measurement ID
+#   AWS_ACCESS_KEY_ID              - AWS IAM credentials
+#   AWS_SECRET_ACCESS_KEY          - AWS IAM credentials
+#   S3_BUCKET_NAME                 - S3 bucket for the legacy site
+#   CLOUDFRONT_DISTRIBUTION_ID     - CloudFront distribution serving legacy.kayleiburke.com
+#   REACT_APP_GA_MEASUREMENT_ID    - Google Analytics measurement ID
 
 on:
   push:

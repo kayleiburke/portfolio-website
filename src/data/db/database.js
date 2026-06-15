@@ -81,7 +81,7 @@ const database = {
     {
       id: 1,
       title: "Portfolio Website",
-      subtitle: `This website! Built with React, and deployed with AWS. Based on the <a href="https://themeforest.net/item/chester-react-personal-portfolio-template/24952954?utm_source=Iterable&utm_medium=email&utm_campaign=market_email_workflow_t_orderconfirmation_all" target="_blank" rel="noopener noreferrer">Chester React Personal Portfolio Template</a>`,
+      subtitle: "This website! Built with React and custom SCSS, deployed on AWS S3 + CloudFront via GitHub Actions.",
       imageUrl: "/images/portfolio-website.png",
       githubUrl: "https://github.com/kayleiburke/portfolio-website",
       url: "https://kayleiburke.com"
