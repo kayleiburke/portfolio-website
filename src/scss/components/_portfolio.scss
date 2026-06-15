@@ -5,6 +5,16 @@
  * @format
  */
 
+.mi-portfolio-intro {
+  margin-bottom: 8px;
+}
+
+.mi-portfolio-note {
+  font-size: 14px;
+  color: $color-body;
+  margin-bottom: 30px;
+}
+
 .mi-portfolio {
   transition: $transition;
   visibility: hidden;
