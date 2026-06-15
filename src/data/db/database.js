@@ -74,8 +74,9 @@ const database = {
     { category: "Frameworks", items: ["Ruby on Rails", "React", "Vue.js", "AngularJS", "Ruby on Jets"] },
     { category: "Cloud & DevOps", items: ["AWS", "Docker", "CircleCI", "Azure"] },
     { category: "Databases", items: ["MySQL", "PostgreSQL", "SQL Server", "Oracle", "MongoDB", "DB2"] },
-    { category: "Auth & Security", items: ["SAML", "Shibboleth", "Okta", "Azure AD", "CSRF/XSS remediation"] },
+    { category: "Auth & Security", items: ["SAML", "Shibboleth", "Okta", "Azure AD", "Wiz", "CSRF/XSS remediation"] },
     { category: "Testing", items: ["RSpec", "Minitest", "Capybara"] },
+    { category: "Monitoring & Alerting", items: ["Sentry", "Datadog", "New Relic"] },
   ],
   portfolios: [
     {
