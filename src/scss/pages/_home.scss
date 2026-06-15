@@ -2,85 +2,81 @@
  * Home Styles
  */
 
-.mi-home{
-  &-area{
+.mi-home {
+  &-area {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     position: relative;
     z-index: 1;
+    overflow: hidden;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba($color-border, 0.4) 1px, transparent 1px);
+      background-size: 30px 30px;
+      z-index: -1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to top, $color-bg-body, transparent);
+      z-index: 0;
+    }
   }
 
-  &-particle{
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-  }
-
-  &-content{
+  &-content {
     text-align: center;
-    padding: 50px 80px;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
 
-    h1{
-      font-weight: 700;
+    .mi-home-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: $color-theme;
+      margin-bottom: 16px;
     }
 
-    p{
-      margin-top: 15px;
-      font-size: 1.25rem;
-      line-height: 2rem;
+    h1 {
+      font-weight: 800;
+      font-size: 3.8rem;
+      line-height: 1.15;
+      margin-bottom: 20px;
+
+      @media #{$layout-tablet} { font-size: 3rem; }
+      @media #{$layout-mobile-lg} { font-size: 2.2rem; }
     }
 
-    .mi-socialicons{
-      margin-top: 20px;
+    p {
+      margin: 0 auto 32px;
+      max-width: 600px;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: $color-body;
     }
-  }
 
-  @media #{$layout-laptop}{
-    &-content{
-      padding: 50px 0px;
+    .mi-home-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
     }
-  }
 
-  @media #{$layout-notebook}{
-    &-content{
-      padding: 50px 0px;
-    }
-  }
-
-  @media #{$layout-tablet}{
-    &-content{
-      padding: 50px 0px;
-
-      p{
-        font-size: 1.15rem;
-        line-height: 1.75rem;
-      }
-    }
-  }
-
-  @media #{$layout-mobile-lg}{
-    &-content{
-      padding: 50px 0px;
-
-      p{
-        font-size: 1.08rem;
-        line-height: 1.55rem;
-      }
-    }
-  }
-
-  @media #{$layout-mobile-sm}{
-    &-content{
-      h1{
-        span{
-          display: block;
-        }
-      }
+    .mi-socialicons {
+      margin-top: 8px;
     }
   }
 }

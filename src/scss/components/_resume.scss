@@ -47,7 +47,7 @@
 
 .mi-resume {
   &-wrapper {
-    border-left: 3px solid $color-border;
+    border-left: 3px solid rgba($color-theme, 0.4);
   }
 
   & {
@@ -70,7 +70,7 @@
       width: 15px;
       border-radius: 100px;
       background: $color-bg-body;
-      border: 3px solid $color-border;
+      border: 3px solid $color-theme;
     }
   }
 
@@ -80,7 +80,7 @@
   }
 
   &-company {
-    color: #ffffff;
+    color: $color-theme;
   }
 
   &-details {

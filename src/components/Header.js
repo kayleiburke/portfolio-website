@@ -1,15 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import LineIcon from "react-lineicons";
-import { Link, NavLink } from "react-router-dom";
-import { Image } from "./common/Image";
+import { NavLink } from "react-router-dom";
 
 function Header() {
   const [information, setInformation] = useState("");
-  const [navigationToggler, setNavigationToggler] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleNavigationToggler = () => {
-    setNavigationToggler(!navigationToggler);
+  const handleMenuToggle = () => {
+    setMenuOpen(!menuOpen);
+  };
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
   useEffect(() => {
@@ -18,61 +22,86 @@ function Header() {
     });
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 20);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className={navigationToggler ? "mi-header is-visible" : "mi-header"}>
-      <button onClick={handleNavigationToggler} className="mi-header-toggler">
-        {!navigationToggler ? (
-          <LineIcon name="menu" />
-        ) : (
-          <LineIcon name="close" />
-        )}
-      </button>
+    <header className={`mi-header${scrolled ? " is-scrolled" : ""}`}>
       <div className="mi-header-inner">
-        <div className="mi-header-image">
-          <Link to="/">
-            <Image
-              src={information.brandImage}
-              placeholder="/images/about-image-placeholder.png"
-              alt="brandimage"
-            />
-          </Link>
-        </div>
+        <NavLink to="/" end className="mi-header-logo" onClick={closeMenu}>
+          {information.name || "Kaylei Burke"}
+        </NavLink>
 
         <ul className="mi-header-menu">
           <li>
-            <NavLink to="/" end>
-              <span>Home</span>
+            <NavLink to="/" end onClick={closeMenu}>
+              Home
             </NavLink>
           </li>
           <li>
-            <NavLink to="/about">
-              <span>About</span>
+            <NavLink to="/about" onClick={closeMenu}>
+              About
             </NavLink>
           </li>
           <li>
-            <NavLink to="/resume">
-              <span>Resume</span>
+            <NavLink to="/resume" onClick={closeMenu}>
+              Resume
             </NavLink>
           </li>
           <li>
-            <NavLink to="/portfolios">
-              <span>Portfolio</span>
+            <NavLink to="/portfolios" onClick={closeMenu}>
+              Portfolio
             </NavLink>
           </li>
           <li>
-            <NavLink to="/contact">
-              <span>Contact</span>
+            <NavLink to="/contact" onClick={closeMenu}>
+              Contact
             </NavLink>
           </li>
         </ul>
-        <p className="mi-header-copyright">
-          &copy; {new Date().getFullYear()}{" "}
-          <b>
-            Kaylei Burke
-          </b>
-        </p>
+
+        <button
+          className="mi-header-toggler"
+          onClick={handleMenuToggle}
+          aria-label="Toggle navigation"
+        >
+          <LineIcon name={menuOpen ? "close" : "menu"} />
+        </button>
       </div>
-    </nav>
+
+      <ul className={`mi-header-mobile-menu${menuOpen ? " is-open" : ""}`}>
+        <li>
+          <NavLink to="/" end onClick={closeMenu}>
+            Home
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/about" onClick={closeMenu}>
+            About
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/resume" onClick={closeMenu}>
+            Resume
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/portfolios" onClick={closeMenu}>
+            Portfolio
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/contact" onClick={closeMenu}>
+            Contact
+          </NavLink>
+        </li>
+      </ul>
+    </header>
   );
 }
 

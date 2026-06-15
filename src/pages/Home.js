@@ -1,12 +1,11 @@
 import axios from "axios";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
-import Particle from "../components/Particle";
 import Socialicons from "../components/Socialicons";
-import Spinner from "../components/Spinner";
 
-function Home({ lightMode }) {
+function Home() {
   const [information, setInformation] = useState("");
 
   useEffect(() => {
@@ -19,30 +18,29 @@ function Home({ lightMode }) {
     <Layout>
       <Helmet>
         <title>Home - Kaylei Burke</title>
-        <meta
-          name="description"
-          content="Kaylei Burke Homepage"
-        />
+        <meta name="description" content="Kaylei Burke Homepage" />
       </Helmet>
-      <Suspense fallback={<Spinner />}>
-        <div className="mi-home-area mi-padding-section">
-          <Particle lightMode={lightMode} />
-          <div className="container">
-            <div className="row justify-content-center">
-              <div className="col-lg-10 col-12">
-                <div className="mi-home-content">
-                  <h1>
-                    Hi, I'm {" "}
-                    <span className="color-theme">{information.name}</span>!
-                  </h1>
-                  <p>{information.aboutContent}</p>
-                  <Socialicons bordered />
-                </div>
-              </div>
-            </div>
+      <div className="mi-home-area">
+        <div className="mi-home-content">
+          <span className="mi-home-label">
+            Senior Software Engineer &amp; Technical Lead
+          </span>
+          <h1>
+            Hi, I&apos;m{" "}
+            <span className="color-theme">{information.name}</span>
+          </h1>
+          <p>{information.aboutContent}</p>
+          <div className="mi-home-buttons">
+            <Link to="/portfolios" className="mi-button">
+              View My Work
+            </Link>
+            <Link to="/contact" className="mi-button-outline">
+              Get In Touch
+            </Link>
           </div>
+          <Socialicons bordered />
         </div>
-      </Suspense>
+      </div>
     </Layout>
   );
 }

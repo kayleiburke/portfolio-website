@@ -1,4 +1,13 @@
-name: Deploy website to S3 + CloudFront
+name: Deploy legacy site to S3 + CloudFront (legacy.kayleiburke.com)
+
+# This deploys the legacy portfolio to legacy.kayleiburke.com.
+#
+# Required GitHub secrets for this repo:
+#   AWS_ACCESS_KEY_ID              — AWS IAM credentials
+#   AWS_SECRET_ACCESS_KEY          — AWS IAM credentials
+#   S3_BUCKET_NAME                 — S3 bucket for the legacy site
+#   CLOUDFRONT_DISTRIBUTION_ID     — CloudFront distribution serving legacy.kayleiburke.com
+#   REACT_APP_GA_MEASUREMENT_ID    — Google Analytics measurement ID
 
 on:
   push:
@@ -11,32 +20,41 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+        uses: actions/checkout@v4
 
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build React App
-        run: |
-          REACT_APP_GA_MEASUREMENT_ID="${{ secrets.REACT_APP_GA_MEASUREMENT_ID }}" npm run build
+        run: npm run build
+        env:
+          REACT_APP_GA_MEASUREMENT_ID: ${{ secrets.REACT_APP_GA_MEASUREMENT_ID }}
 
-      - name: Sync S3 bucket
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Sync to S3
         run: |
           aws s3 sync build/ s3://${{ secrets.S3_BUCKET_NAME }} \
             --delete \
-            --cache-control "max-age=31536000"
+            --cache-control "public, max-age=31536000, immutable" \
+            --exclude "*.html" \
+            --exclude "*.json"
+          aws s3 sync build/ s3://${{ secrets.S3_BUCKET_NAME }} \
+            --delete \
+            --cache-control "public, max-age=0, must-revalidate" \
+            --include "*.html" \
+            --include "*.json"
 
       - name: Invalidate CloudFront cache
         run: |
